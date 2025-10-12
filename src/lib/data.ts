@@ -129,23 +129,6 @@ export const interestRateHistory: ChartDataPoint[] = Array.from(
   }
 );
 
-export const inflationVsBTC: ChartDataPoint[] = Array.from(
-  { length: 24 },
-  (_, i) => {
-    const date = new Date();
-    date.setMonth(date.getMonth() - (23 - i));
-    return {
-      date: date.toISOString().split('T')[0],
-      'BTC Return': (Math.random() * 20 - 10).toFixed(2),
-      'CPI Rate': (
-        3 +
-        Math.cos(i / 4) * 1.5 +
-        (Math.random() - 0.5) * 0.5
-      ).toFixed(2),
-    };
-  }
-);
-
 export const sp500VsBtcCorrelation: ChartDataPoint[] = Array.from(
   { length: 24 },
   (_, i) => {
@@ -159,6 +142,25 @@ export const sp500VsBtcCorrelation: ChartDataPoint[] = Array.from(
     };
   }
 );
+
+
+export const fedDotPlotData: { year: string, rate: number }[] = [
+  // Current Year
+  { year: '2024', rate: 5.1 }, { year: '2024', rate: 5.1 }, { year: '2024', rate: 4.9 }, { year: '2024', rate: 5.1 },
+  { year: '2024', rate: 4.6 }, { year: '2024', rate: 4.6 }, { year: '2024', rate: 5.4 }, { year: '2024', rate: 5.1 },
+  { year: '2024', rate: 4.9 }, { year: '2024', rate: 4.9 }, { year: '2024', rate: 4.6 },
+  
+  // Next Year
+  { year: '2025', rate: 4.1 }, { year: '2025', rate: 3.9 }, { year: '2025', rate: 4.4 }, { year: '2025', rate: 4.1 },
+  { year: '2025', rate: 3.6 }, { year: '2025', rate: 3.9 }, { year: '2025', rate: 4.6 }, { year: '2025', rate: 4.1 },
+  { year: '2025', rate: 3.9 }, { year: '2025', rate: 3.1 }, { year: '2025', rate: 3.4 },
+
+  // Year After Next
+  { year: '2026', rate: 3.1 }, { year: '2026', rate: 2.9 }, { year: '2026', rate: 3.4 }, { year: '2026', rate: 3.1 },
+  { year: '2026', rate: 2.6 }, { year: '2026', rate: 2.9 }, { year: '2026', rate: 3.6 }, { year: '2026', rate: 3.1 },
+  { year: '2026', rate: 2.9 }, { year: '2026', rate: 2.4 }, { year: '2026', rate: 2.1 },
+];
+
 
 // --- Data for Crypto Market Overview ---
 export const cryptoMetrics: MetricCard[] = [

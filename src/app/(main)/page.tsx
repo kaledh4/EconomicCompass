@@ -13,8 +13,8 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { cn } from '@/lib/utils';
-import { macroMetrics, interestRateHistory, inflationVsBTC, sp500VsBtcCorrelation } from '@/lib/data';
-import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { macroMetrics, interestRateHistory, sp500VsBtcCorrelation, fedDotPlotData } from '@/lib/data';
+import { Bar, BarChart, CartesianGrid, Line, LineChart, Scatter, ScatterChart, XAxis, YAxis, Label } from 'recharts';
 
 const chartConfig = {
   fedRate: {
@@ -32,11 +32,16 @@ const chartConfig = {
   correlation: {
     label: 'Correlation',
     color: 'hsl(var(--chart-1))',
+  },
+  dot: {
+    label: 'Projection',
+    color: 'hsl(var(--chart-1))',
   }
 };
 
 const formatDate = (value: string) => {
   const date = new Date(value);
+  // show month and year 'Jan 23'
   return date.toLocaleDateString('en-US', {
     month: 'short',
     year: '2-digit',
@@ -64,15 +69,15 @@ export default function Dashboard() {
                     : 'text-red-500'
                 )}
               >
-                {metric.change} vs last month
+                {metric.change}
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <Card>
           <CardHeader>
             <CardTitle asChild>
               <h3 className="font-headline">S&amp;P 500 vs. BTC Correlation (90-Day)</h3>
@@ -132,32 +137,30 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-      </div>
-       <Card>
+        <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">CPI vs. BTC Returns</h3>
+              <h3 className="font-headline">Fed Dot Plot (FOMC Projections)</h3>
             </CardTitle>
             <CardDescription asChild>
               <p>
-                Monthly Bitcoin returns against year-over-year inflation.
+                Each dot represents a Fed member's projection for the federal funds rate.
               </p>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[250px] w-full">
-                <BarChart data={inflationVsBTC} margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
+                <ScatterChart margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
                     <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                    <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={formatDate} />
-                    <YAxis yAxisId="left" orientation="left" stroke="var(--color-cpiRate)" tickLine={false} axisLine={false} />
-                    <YAxis yAxisId="right" orientation="right" stroke="var(--color-btcReturn)" tickLine={false} axisLine={false} />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Bar yAxisId="left" dataKey="CPI Rate" fill="var(--color-cpiRate)" radius={4} />
-                    <Bar yAxisId="right" dataKey="BTC Return" fill="var(--color-btcReturn)" radius={4} />
-                </BarChart>
+                    <XAxis dataKey="year" type="category" allowDuplicatedCategory={false} tickLine={false} axisLine={false} tickMargin={8}/>
+                    <YAxis dataKey="rate" unit="%" tickLine={false} axisLine={false} tickMargin={8}/>
+                    <ChartTooltip cursor={{ strokeDasharray: '3 3' }} content={<ChartTooltipContent />} />
+                    <Scatter name="Projection" data={fedDotPlotData} fill="var(--color-dot)" />
+                </ScatterChart>
             </ChartContainer>
           </CardContent>
         </Card>
+      </div>
     </div>
   );
 }
