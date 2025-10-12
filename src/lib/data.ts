@@ -133,18 +133,32 @@ export const cryptoMetrics: MetricCard[] = [
     description: 'ETH/USD',
   },
   {
-    title: 'BTC Market Cap',
-    value: '$1.28T',
-    change: '',
+    title: 'Fear & Greed Index',
+    value: '72',
+    change: 'Greed',
     changeType: 'positive',
-    description: 'Total market value',
+    description: 'Market Sentiment',
+  },
+  {
+    title: 'BTC Dominance',
+    value: '54.2%',
+    change: '+0.5% in last 24h',
+    changeType: 'positive',
+    description: 'BTC Market Share',
+  },
+  {
+    title: 'Total Mkt Cap',
+    value: '$2.45T',
+    change: '+3.1% in last 24h',
+    changeType: 'positive',
+    description: 'Total Crypto Value',
   },
    {
     title: 'BTC 30D Volatility',
     value: '2.8%',
-    change: '',
+    change: '+0.1%',
     changeType: 'negative',
-    description: 'Price fluctuation',
+    description: 'Price Fluctuation',
   },
 ];
 
