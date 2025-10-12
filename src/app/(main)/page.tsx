@@ -69,7 +69,7 @@ export default function Dashboard() {
             <ChartContainer config={chartConfig} className="h-[250px] w-full">
               <LineChart data={interestRateHistory} margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
+                <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} />
                 <YAxis unit="%" tickLine={false} axisLine={false} tickMargin={8} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Line
@@ -95,7 +95,7 @@ export default function Dashboard() {
             <ChartContainer config={chartConfig} className="h-[250px] w-full">
                 <BarChart data={inflationVsBTC} margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
                     <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                    <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
+                    <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} />
                     <YAxis yAxisId="left" orientation="left" stroke="var(--color-cpiRate)" tickLine={false} axisLine={false} />
                     <YAxis yAxisId="right" orientation="right" stroke="var(--color-btcReturn)" tickLine={false} axisLine={false} />
                     <ChartTooltip content={<ChartTooltipContent />} />

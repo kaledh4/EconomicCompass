@@ -59,6 +59,9 @@ export default function DcaSimulatorPage() {
       setResult(dcaSimulationResult(amount));
     }
   };
+  
+  const currentYear = new Date().getFullYear();
+
 
   return (
     <div className="grid gap-6 lg:grid-cols-3">
@@ -106,7 +109,7 @@ export default function DcaSimulatorPage() {
             </div>
              <div className="space-y-2">
               <Label htmlFor="period">Time Period</Label>
-               <Input id="period" value="1 Year (2023)" disabled />
+               <Input id="period" value={`1 Year (${currentYear - 1})`} disabled />
             </div>
           </CardContent>
           <CardFooter>

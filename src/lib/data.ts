@@ -1,6 +1,16 @@
 import type { MetricCard, ChartDataPoint, PortfolioAsset } from './types';
 
-// Data for Global Macro Dashboard
+// Function to get the month name from a date
+const getMonthName = (date: Date) => {
+  return date.toLocaleString('default', { month: 'short' });
+};
+
+// Get today's date
+const today = new Date();
+const currentYear = today.getFullYear();
+const currentMonth = today.getMonth();
+
+// --- Data for Global Macro Dashboard ---
 export const macroMetrics: MetricCard[] = [
   {
     title: 'Fed Funds Rate',
@@ -34,22 +44,29 @@ export const macroMetrics: MetricCard[] = [
 
 export const interestRateHistory: ChartDataPoint[] = Array.from(
   { length: 24 },
-  (_, i) => ({
-    date: `2022-${(i % 12) + 1}-01`,
-    'Fed Rate': (4.5 + Math.sin(i / 6) * 0.5 + (Math.random() - 0.5) * 0.2).toFixed(2),
-  })
-);
+  (_, i) => {
+    const date = new Date(currentYear - 2, currentMonth - i, 1);
+    return {
+      date: getMonthName(date),
+      'Fed Rate': (4.5 + Math.sin(i / 6) * 0.5 + (Math.random() - 0.5) * 0.2).toFixed(2),
+    };
+  }
+).reverse();
 
 export const inflationVsBTC: ChartDataPoint[] = Array.from(
   { length: 24 },
-  (_, i) => ({
-    date: `2022-${(i % 12) + 1}-01`,
-    'BTC Return': (Math.random() * 20 - 10).toFixed(2),
-    'CPI Rate': (3 + Math.cos(i / 4) * 1.5 + (Math.random() - 0.5) * 0.5).toFixed(2),
-  })
-);
+  (_, i) => {
+    const date = new Date(currentYear - 2, currentMonth - i, 1);
+    return {
+      date: getMonthName(date),
+      'BTC Return': (Math.random() * 20 - 10).toFixed(2),
+      'CPI Rate': (3 + Math.cos(i / 4) * 1.5 + (Math.random() - 0.5) * 0.5).toFixed(2),
+    };
+  }
+).reverse();
 
-// Data for Crypto Market Overview
+
+// --- Data for Crypto Market Overview ---
 export const cryptoMetrics: MetricCard[] = [
   {
     title: 'Bitcoin Price',
@@ -82,7 +99,7 @@ export const cryptoMetrics: MetricCard[] = [
 ];
 
 export const btcLogRegression: ChartDataPoint[] = Array.from({ length: 100 }, (_, i) => {
-    const date = new Date(2020, 0, i * 7);
+    const date = new Date(currentYear - 2, 0, i * 7);
     const price = Math.exp(0.015 * i + 8 + Math.sin(i / 10) * 0.2) * (1 + (Math.random() - 0.5) * 0.2);
     const topBand = price * 1.8;
     const bottomBand = price * 0.5;
@@ -95,7 +112,7 @@ export const btcLogRegression: ChartDataPoint[] = Array.from({ length: 100 }, (_
 });
 
 
-// Data for DCA Simulator
+// --- Data for DCA Simulator ---
 export const availableAssets: PortfolioAsset[] = [
   { ticker: 'BTC-USD', name: 'Bitcoin' },
   { ticker: 'ETH-USD', name: 'Ethereum' },
@@ -108,7 +125,7 @@ export const dcaSimulationResult = (amount: number) => {
   let totalInvested = 0;
   let portfolioValue = 0;
   for (let i = 0; i < 52; i++) {
-    const date = new Date(2023, 0, i * 7);
+    const date = new Date(currentYear -1, 0, i * 7);
     totalInvested += amount;
     const randomFactor = 1 + (Math.sin(i / 5) * 0.1 + (Math.random() - 0.5) * 0.05);
     portfolioValue = (portfolioValue + amount) * randomFactor;
@@ -126,7 +143,7 @@ export const dcaSimulationResult = (amount: number) => {
   }
 };
 
-// Data for Portfolio Optimizer
+// --- Data for Portfolio Optimizer ---
 export const optimizerAssets: PortfolioAsset[] = [...availableAssets, {ticker: 'ADA-USD', name: 'Cardano'}, {ticker: 'AVAX-USD', name: 'Avalanche'}];
 
 export const efficientFrontierData: ChartDataPoint[] = Array.from({length: 20}, (_, i) => ({
