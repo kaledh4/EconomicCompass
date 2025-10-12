@@ -155,7 +155,7 @@ export async function getMacroMetrics(t: I18n): Promise<MetricCardData[]> {
 
 export const interestRateHistory: ChartDataPoint[] = Array.from(
   { length: 24 },
-  (_, i) => {
+  (_: unknown, i: number) => {
     const date = new Date();
     date.setMonth(date.getMonth() - (23 - i));
     return {
@@ -171,7 +171,7 @@ export const interestRateHistory: ChartDataPoint[] = Array.from(
 
 export const sp500VsBtcCorrelation: ChartDataPoint[] = Array.from(
   { length: 24 },
-  (_, i) => {
+  (_: unknown, i: number) => {
     const date = new Date();
     date.setMonth(date.getMonth() - (23 - i));
     return {
@@ -298,7 +298,7 @@ export function getNextHalving() {
 
 export const btcLogRegression: ChartDataPoint[] = Array.from(
   { length: 150 },
-  (_, i) => {
+  (_: unknown, i: number) => {
     const date = new Date();
     date.setFullYear(date.getFullYear() - 4);
     date.setDate(date.getDate() + i * 10);
@@ -328,7 +328,7 @@ export async function dcaSimulationResult(asset: string, investment: number, fro
   const historicalData = await fetchFmpHistorical(asset, from, to);
   if (!historicalData) return null;
 
-  const weeklyData = historicalData.filter((_, i) => i % 7 === 0).reverse();
+  const weeklyData = historicalData.filter((_: unknown, i: number) => i % 7 === 0).reverse();
 
   const data: ChartDataPoint[] = [];
   let totalInvested = 0;
@@ -367,7 +367,7 @@ export const optimizerAssets = (t: I18n): PortfolioAsset[] => [
 
 export const efficientFrontierData: ChartDataPoint[] = Array.from(
   { length: 20 },
-  (_, i) => ({
+  (_: unknown, i: number) => ({
     date: 'Point ' + (i + 1),
     Risk: (0.1 + i * 0.02 + (Math.random() - 0.5) * 0.02).toFixed(3),
     Return: (0.05 + Math.sqrt(i) * 0.05 + (Math.random() - 0.5) * 0.03).toFixed(
