@@ -1,11 +1,20 @@
 import { Header } from '@/components/layout/header';
 import { Sidebar } from '@/components/layout/sidebar';
+import { notFound } from 'next/navigation';
 
 export default function DashboardLayout({
   children,
+  params
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+
+  const locales = ['en', 'ar'];
+  if (!locales.includes(params.locale)) {
+    notFound();
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <Sidebar />
