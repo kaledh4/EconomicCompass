@@ -11,11 +11,24 @@ import {
   sp500VsBtcCorrelation,
   fedDotPlotData,
 } from '@/lib/data';
-import { Line, LineChart, Scatter, ScatterChart, XAxis, YAxis } from 'recharts';
+import {
+  Line,
+  LineChart,
+  Scatter,
+  ScatterChart,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { MetricCard } from '@/components/metric-card';
-
 
 const chartConfig = {
   fedRate: {
