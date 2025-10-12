@@ -1,7 +1,8 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
-import { Bell, Bot, Loader, User } from 'lucide-react';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { Bell, Bot, Loader } from 'lucide-react';
 
 import { getEconomicAlerts } from '@/app/actions';
 import { Button } from '@/components/ui/button';
@@ -26,7 +27,7 @@ function SubmitButton() {
 
 export default function AlertsPage() {
   const initialState = { alerts: [], error: undefined };
-  const [state, formAction] = useFormState(getEconomicAlerts, initialState);
+  const [state, formAction] = useActionState(getEconomicAlerts, initialState);
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
