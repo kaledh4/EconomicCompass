@@ -20,7 +20,7 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts';
-import { getTranslator } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import {
   Card,
   CardContent,
@@ -64,7 +64,7 @@ const formatDate = (value: string) => {
 
 export default async function Dashboard() {
   // Fallback to 'en' if locale is not available.
-  const t = await getTranslator('en');
+  const t = await getTranslations();
   const macroMetrics = await getMacroMetrics(t);
 
   return (
