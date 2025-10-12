@@ -46,9 +46,8 @@ export default function CryptoPage() {
                 className={cn(
                   'text-xs',
                   metric.changeType === 'positive'
-                    ? 'text-accent'
-                    // TODO: Use a color variable for negative change
-                    : 'text-destructive'
+                    ? 'text-green-500'
+                    : 'text-red-500'
                 )}
               >
                 {metric.change} in last 24h
