@@ -5,6 +5,7 @@ import {
   Calculator,
   Target,
   Bell,
+  Newspaper,
 } from 'lucide-react';
 
 export const NAV_LINKS: NavLink[] = [
@@ -13,6 +14,7 @@ export const NAV_LINKS: NavLink[] = [
   { href: '/dca', label: 'DCA Simulator', icon: Calculator },
   { href: '/optimizer', label: 'Portfolio Optimizer', icon: Target },
   { href: '/alerts', label: 'Economic Alerts', icon: Bell },
+  { href: '/news', label: 'News', icon: Newspaper },
 ];
 
 export const MOCK_USER = {
