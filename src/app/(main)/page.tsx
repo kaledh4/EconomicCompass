@@ -13,7 +13,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { cn } from '@/lib/utils';
-import { macroMetrics, interestRateHistory, inflationVsBTC } from '@/lib/data';
+import { macroMetrics, interestRateHistory, inflationVsBTC, sp500VsBtcCorrelation } from '@/lib/data';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 
 const chartConfig = {
@@ -29,6 +29,10 @@ const chartConfig = {
     label: 'CPI Rate %',
     color: 'hsl(var(--chart-2))',
   },
+  correlation: {
+    label: 'Correlation',
+    color: 'hsl(var(--chart-1))',
+  }
 };
 
 const formatDate = (value: string) => {
@@ -47,7 +51,9 @@ export default function Dashboard() {
           <Card key={metric.title}>
             <CardHeader className="pb-2">
               <CardDescription>{metric.title}</CardDescription>
-              <CardTitle className="text-4xl font-bold">{metric.value}</CardTitle>
+              <CardTitle asChild>
+                <h3 className="text-4xl font-bold">{metric.value}</h3>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <div
@@ -65,12 +71,46 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle asChild>
+              <h3 className="font-headline">S&amp;P 500 vs. BTC Correlation (90-Day)</h3>
+            </CardTitle>
+            <CardDescription asChild>
+              <p>
+                Measures how closely Bitcoin's price movement tracks the S&amp;P 500 index.
+              </p>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-[250px] w-full">
+              <LineChart data={sp500VsBtcCorrelation} margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={formatDate} />
+                <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[-1, 1]}/>
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <Line
+                  dataKey="correlation"
+                  type="monotone"
+                  stroke="var(--color-correlation)"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">Interest Rate History</CardTitle>
-            <CardDescription>
-              Federal funds effective rate over the last 24 months.
+            <CardTitle asChild>
+              <h3 className="font-headline">Interest Rate History</h3>
+            </CardTitle>
+            <CardDescription asChild>
+              <p>
+                Federal funds effective rate over the last 24 months.
+              </p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -92,11 +132,16 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+      </div>
+       <Card>
           <CardHeader>
-            <CardTitle className="font-headline">CPI vs. BTC Returns</CardTitle>
-            <CardDescription>
-              Monthly Bitcoin returns against year-over-year inflation.
+            <CardTitle asChild>
+              <h3 className="font-headline">CPI vs. BTC Returns</h3>
+            </CardTitle>
+            <CardDescription asChild>
+              <p>
+                Monthly Bitcoin returns against year-over-year inflation.
+              </p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -113,7 +158,6 @@ export default function Dashboard() {
             </ChartContainer>
           </CardContent>
         </Card>
-      </div>
     </div>
   );
 }
