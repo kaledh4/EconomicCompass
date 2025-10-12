@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 
-type Language = 'en' | 'ar';
+type Language = 'en'; // Only 'en' is supported now
 type Theme = 'dark' | 'light';
 
 export type SettingsContextType = {
@@ -46,7 +46,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     if (isMounted) {
       const root = window.document.documentElement;
       root.lang = language;
-      root.dir = language === 'ar' ? 'rtl' : 'ltr';
+      root.dir = 'ltr'; // Always LTR for now
       localStorage.setItem('language', language);
     }
   }, [language, isMounted]);

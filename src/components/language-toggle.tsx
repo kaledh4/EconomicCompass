@@ -14,6 +14,11 @@ import { useSettings } from '@/hooks/use-settings';
 export function LanguageToggle() {
   const { language, setLanguage } = useSettings();
 
+  // The multi-language feature was not fully implemented.
+  // This component is being kept for future extension but is currently non-functional.
+  // To re-enable, add more DropdownMenuItems.
+  if (true) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,12 +33,6 @@ export function LanguageToggle() {
           disabled={language === 'en'}
         >
           English
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage('ar')}
-          disabled={language === 'ar'}
-        >
-          العربية (Layout)
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

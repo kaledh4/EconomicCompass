@@ -1,6 +1,6 @@
 'use client';
 
-import { Paintbrush, Languages, Sparkles } from 'lucide-react';
+import { Paintbrush, Sparkles } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -23,8 +23,6 @@ export default function SettingsPage() {
   const {
     theme,
     setTheme,
-    language,
-    setLanguage,
     animationsEnabled,
     setAnimationsEnabled,
   } = useSettings();
@@ -58,28 +56,6 @@ export default function SettingsPage() {
               <SelectContent>
                 <SelectItem value="light">Light</SelectItem>
                 <SelectItem value="dark">Dark</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex items-center justify-between rounded-lg border p-4">
-            <div className="space-y-0.5">
-              <Label htmlFor="language" className="flex items-center gap-2 text-base">
-                <Languages className="h-4 w-4" /> Language
-              </Label>
-              <p className="text-sm text-muted-foreground">
-                Choose your preferred language (affects layout).
-              </p>
-            </div>
-            <Select
-              value={language}
-              onValueChange={(value) => setLanguage(value as 'en' | 'ar')}
-            >
-              <SelectTrigger className="w-[120px]">
-                <SelectValue placeholder="Select language" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="en">English</SelectItem>
-                <SelectItem value="ar">العربية</SelectItem>Moment
               </SelectContent>
             </Select>
           </div>
