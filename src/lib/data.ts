@@ -1,10 +1,5 @@
 import type { MetricCard, ChartDataPoint, PortfolioAsset } from './types';
 
-// Function to get the month name from a date
-const getMonthName = (date: Date) => {
-  return date.toLocaleString('default', { month: 'short' });
-};
-
 // Get today's date
 const today = new Date();
 const currentYear = today.getFullYear();
@@ -45,9 +40,10 @@ export const macroMetrics: MetricCard[] = [
 export const interestRateHistory: ChartDataPoint[] = Array.from(
   { length: 24 },
   (_, i) => {
-    const date = new Date(currentYear - 2, currentMonth - i, 1);
+    const date = new Date(today);
+    date.setMonth(date.getMonth() - i);
     return {
-      date: getMonthName(date),
+      date: date.toISOString().split('T')[0],
       'Fed Rate': (4.5 + Math.sin(i / 6) * 0.5 + (Math.random() - 0.5) * 0.2).toFixed(2),
     };
   }
@@ -56,9 +52,10 @@ export const interestRateHistory: ChartDataPoint[] = Array.from(
 export const inflationVsBTC: ChartDataPoint[] = Array.from(
   { length: 24 },
   (_, i) => {
-    const date = new Date(currentYear - 2, currentMonth - i, 1);
+    const date = new Date(today);
+    date.setMonth(date.getMonth() - i);
     return {
-      date: getMonthName(date),
+      date: date.toISOString().split('T')[0],
       'BTC Return': (Math.random() * 20 - 10).toFixed(2),
       'CPI Rate': (3 + Math.cos(i / 4) * 1.5 + (Math.random() - 0.5) * 0.5).toFixed(2),
     };
