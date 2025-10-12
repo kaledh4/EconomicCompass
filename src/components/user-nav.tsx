@@ -12,10 +12,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { MOCK_USER } from '@/lib/constants';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 
 export function UserNav() {
-  const { t } = useI18n();
+  const t = useTranslations('UserNav');
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -49,14 +49,14 @@ export function UserNav() {
           <DropdownMenuItem asChild>
             <Link href="/settings">
               <Settings className="mr-2 h-4 w-4" />
-              <span>{t('UserNav.settings')}</span>
+              <span>{t('settings')}</span>
             </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>{t('UserNav.logout')}</span>
+          <span>{t('logout')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -17,7 +17,7 @@ import {
 import { getCryptoMetrics, btcLogRegression, getNextHalving } from '@/lib/data';
 import type { MetricCardData } from '@/lib/types';
 import { Line, LineChart, XAxis, YAxis, CartesianGrid, AreaChart, Area } from 'recharts';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 import { MetricCard } from '@/components/metric-card';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -37,7 +37,7 @@ const chartConfig = {
 };
 
 function HalvingCountdown() {
-  const { t } = useI18n();
+  const t = useTranslations('Crypto');
   const [countdown, setCountdown] = useState({
     days: 0,
     hours: 0,
@@ -76,25 +76,25 @@ function HalvingCountdown() {
         <div className="text-2xl font-bold">
           {String(countdown.days).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">{t('Crypto.days')}</div>
+        <div className="text-xs text-muted-foreground">{t('days')}</div>
       </div>
       <div>
         <div className="text-2xl font-bold">
           {String(countdown.hours).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">{t('Crypto.hours')}</div>
+        <div className="text-xs text-muted-foreground">{t('hours')}</div>
       </div>
       <div>
         <div className="text-2xl font-bold">
           {String(countdown.minutes).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">{t('Crypto.mins')}</div>
+        <div className="text-xs text-muted-foreground">{t('mins')}</div>
       </div>
       <div>
         <div className="text-2xl font-bold">
           {String(countdown.seconds).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">{t('Crypto.secs')}</div>
+        <div className="text-xs text-muted-foreground">{t('secs')}</div>
       </div>
     </div>
   );
@@ -117,7 +117,7 @@ function MetricCardSkeleton() {
 }
 
 export default function CryptoPage() {
-  const { t } = useI18n();
+  const t = useTranslations('Crypto');
   const [metrics, setMetrics] = useState<MetricCardData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -147,10 +147,10 @@ export default function CryptoPage() {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">{t('Crypto.logRegTitle')}</h3>
+              <h3 className="font-headline">{t('logRegTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>{t('Crypto.logRegDescription')}</p>
+              <p>{t('logRegDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -217,10 +217,10 @@ export default function CryptoPage() {
           <Card>
             <CardHeader>
               <CardTitle asChild>
-                <h3 className="font-headline">{t('Crypto.halvingTitle')}</h3>
+                <h3 className="font-headline">{t('halvingTitle')}</h3>
               </CardTitle>
               <CardDescription>
-                {t('Crypto.halvingDescription')}
+                {t('halvingDescription')}
               </CardDescription>
             </CardHeader>
             <CardContent>

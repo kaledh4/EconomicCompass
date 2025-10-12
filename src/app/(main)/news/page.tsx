@@ -12,11 +12,11 @@ import {
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 export default function NewsPage() {
-  const { t } = useI18n();
+  const t = useTranslations('News');
   const [news, setNews] = useState<{ articles: NewsArticle[], error?: string }>({ articles: [] });
   const [loading, setLoading] = useState(true);
 
@@ -65,7 +65,7 @@ export default function NewsPage() {
   if (!news.articles || news.articles.length === 0) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p>{t('News.noArticles')}</p>
+        <p>{t('noArticles')}</p>
       </div>
     );
   }
@@ -109,7 +109,7 @@ export default function NewsPage() {
               rel="noopener noreferrer"
               className="text-sm font-semibold text-primary hover:underline"
             >
-              {t('News.readMore')}
+              {t('readMore')}
             </Link>
           </CardFooter>
         </Card>

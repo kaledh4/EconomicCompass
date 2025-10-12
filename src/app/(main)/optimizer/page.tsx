@@ -18,7 +18,7 @@ import {
 import { Scatter, ScatterChart, CartesianGrid, XAxis, YAxis, Label } from 'recharts';
 import { optimizerAssets as getOptimizerAssets, efficientFrontierData } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 
 
 const chartConfig = {
@@ -33,7 +33,7 @@ const chartConfig = {
 };
 
 export default function OptimizerPage() {
-  const { t } = useI18n();
+  const t = useTranslations('Optimizer');
   const [selectedAssets, setSelectedAssets] = useState<string[]>(['BTC-USD', 'ETH-USD']);
   const [showResult, setShowResult] = useState(false);
   const optimizerAssets = getOptimizerAssets(t);
@@ -58,9 +58,9 @@ export default function OptimizerPage() {
       <div className="lg:col-span-1">
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">{t('Optimizer.title')}</CardTitle>
+            <CardTitle className="font-headline">{t('title')}</CardTitle>
             <CardDescription>
-              {t('Optimizer.description')}
+              {t('description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -79,7 +79,7 @@ export default function OptimizerPage() {
           </CardContent>
           <CardContent>
              <Button onClick={handleOptimize} className="w-full" disabled={selectedAssets.length < 2}>
-              {t('Optimizer.calculateButton')}
+              {t('calculateButton')}
             </Button>
           </CardContent>
         </Card>
@@ -87,11 +87,11 @@ export default function OptimizerPage() {
       <div className="lg:col-span-2">
         <Card className="h-full">
           <CardHeader>
-            <CardTitle className="font-headline">{t('Optimizer.resultsTitle')}</CardTitle>
+            <CardTitle className="font-headline">{t('resultsTitle')}</CardTitle>
              <CardDescription>
               {showResult
-                ? t('Optimizer.resultsDescription')
-                : t('Optimizer.selectAndCalculate')}
+                ? t('resultsDescription')
+                : t('selectAndCalculate')}
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[400px]">
@@ -102,22 +102,22 @@ export default function OptimizerPage() {
                 <XAxis
                   type="number"
                   dataKey="Risk"
-                  name={t('Optimizer.riskLabel')}
+                  name={t('riskLabel')}
                   unit=""
                   tickLine={false} axisLine={false}
                   tickMargin={8}
                 >
-                  <Label value={t('Optimizer.riskAxisLabel')} offset={-25} position="insideBottom" />
+                  <Label value={t('riskAxisLabel')} offset={-25} position="insideBottom" />
                 </XAxis>
                 <YAxis
                   type="number"
                   dataKey="Return"
-                  name={t('Optimizer.returnLabel')}
+                  name={t('returnLabel')}
                   unit=""
                   tickLine={false} axisLine={false}
                   tickMargin={8}
                 >
-                   <Label value={t('Optimizer.returnAxisLabel')} angle={-90} position="insideLeft" style={{ textAnchor: 'middle' }} />
+                   <Label value={t('returnAxisLabel')} angle={-90} position="insideLeft" style={{ textAnchor: 'middle' }} />
                 </YAxis>
                 <ChartTooltip
                   cursor={{ strokeDasharray: '3 3' }}

@@ -3,8 +3,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { SettingsProvider } from '@/contexts/settings-context';
-import { I18nProvider } from '@/contexts/i18n-context';
-import { NextIntlClientProvider } from 'next-intl';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 
 export const metadata: Metadata = {
@@ -40,10 +39,8 @@ export default async function RootLayout({
       <body className={cn('font-body antialiased')}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <SettingsProvider>
-            <I18nProvider>
-              {children}
-              <Toaster />
-            </I18nProvider>
+            {children}
+            <Toaster />
           </SettingsProvider>
         </NextIntlClientProvider>
       </body>

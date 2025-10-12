@@ -1,6 +1,3 @@
-
-'use client';
-
 import {
   ChartContainer,
   ChartTooltip,
@@ -12,7 +9,6 @@ import {
   sp500VsBtcCorrelation,
   fedDotPlotData,
 } from '@/lib/data';
-import type { MetricCardData } from '@/lib/types';
 import {
   Line,
   LineChart,
@@ -22,7 +18,7 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts';
-import { useI18n } from '@/contexts/i18n-context';
+import { getTranslations } from 'next-intl/server';
 import {
   Card,
   CardContent,
@@ -31,9 +27,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { MetricCard } from '@/components/metric-card';
-import { useEffect, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-
 
 const chartConfig = {
   fedRate: {
@@ -79,24 +73,13 @@ function MetricCardSkeleton() {
         <Skeleton className="h-3 w-2/3 mt-1" />
       </CardContent>
     </Card>
-  )
+  );
 }
 
-export default function Dashboard() {
-  const { t } = useI18n();
-  const [metrics, setMetrics] = useState<MetricCardData[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadMetrics() {
-      setLoading(true);
-      const macroMetrics = await getMacroMetrics(t);
-      setMetrics(macroMetrics);
-      setLoading(false);
-    }
-    loadMetrics();
-  }, [t]);
-
+export default async function Dashboard() {
+  const t = await getTranslations('Macro');
+  const metrics = await getMacroMetrics(t);
+  const loading = false; // Data is pre-fetched on the server
 
   return (
     <div className="space-y-6">
@@ -114,10 +97,10 @@ export default function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">{t('Macro.correlationTitle')}</h3>
+              <h3 className="font-headline">{t('correlationTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>{t('Macro.correlationDescription')}</p>
+              <p>{t('correlationDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -156,10 +139,10 @@ export default function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">{t('Macro.interestRateTitle')}</h3>
+              <h3 className="font-headline">{t('interestRateTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>{t('Macro.interestRateDescription')}</p>
+              <p>{t('interestRateDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -198,10 +181,10 @@ export default function Dashboard() {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">{t('Macro.dotPlotTitle')}</h3>
+              <h3 className="font-headline">{t('dotPlotTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>{t('Macro.dotPlotDescription')}</p>
+              <p>{t('dotPlotDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>

@@ -29,7 +29,7 @@ import {
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { availableAssets as getAvailableAssets, dcaSimulationResult } from '@/lib/data';
 import type { ChartDataPoint } from '@/lib/types';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 
 const chartConfig = {
   portfolioValue: {
@@ -50,7 +50,7 @@ type SimulationResult = {
 };
 
 export default function DcaSimulatorPage() {
-  const { t } = useI18n();
+  const t = useTranslations('DCA');
   const [investment, setInvestment] = useState('100');
   const [asset, setAsset] = useState('BTCUSD');
   const [result, setResult] = useState<SimulationResult | null>(null);
@@ -85,17 +85,17 @@ export default function DcaSimulatorPage() {
       <div className="lg:col-span-1">
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">{t('DCA.title')}</CardTitle>
+            <CardTitle className="font-headline">{t('title')}</CardTitle>
             <CardDescription>
-              {t('DCA.description')}
+              {t('description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="asset">{t('DCA.assetLabel')}</Label>
+              <Label htmlFor="asset">{t('assetLabel')}</Label>
               <Select value={asset} onValueChange={setAsset}>
-                <SelectTrigger id="asset" aria-label={t('DCA.selectAsset')}>
-                  <SelectValue placeholder={t('DCA.selectAsset')} />
+                <SelectTrigger id="asset" aria-label={t('selectAsset')}>
+                  <SelectValue placeholder={t('selectAsset')} />
                 </SelectTrigger>
                 <SelectContent>
                   {availableAssets.map((a) => (
@@ -107,7 +107,7 @@ export default function DcaSimulatorPage() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="investment">{t('DCA.investmentLabel')}</Label>
+              <Label htmlFor="investment">{t('investmentLabel')}</Label>
               <div className="relative">
                 <DollarSign className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground rtl:left-auto rtl:right-2.5" />
                 <Input
@@ -121,17 +121,17 @@ export default function DcaSimulatorPage() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="frequency">{t('DCA.frequencyLabel')}</Label>
-               <Input id="frequency" value={t('DCA.weekly')} disabled />
+              <Label htmlFor="frequency">{t('frequencyLabel')}</Label>
+               <Input id="frequency" value={t('weekly')} disabled />
             </div>
              <div className="space-y-2">
-              <Label htmlFor="period">{t('DCA.periodLabel')}</Label>
-               <Input id="period" value={`${t('DCA.oneYear')} (${currentYear - 1} - ${currentYear})`} disabled />
+              <Label htmlFor="period">{t('periodLabel')}</Label>
+               <Input id="period" value={`${t('oneYear')} (${currentYear - 1} - ${currentYear})`} disabled />
             </div>
           </CardContent>
           <CardFooter>
             <Button onClick={handleSimulate} className="w-full" disabled={loading}>
-              {loading ? <Loader className="animate-spin" /> : t('DCA.runButton')}
+              {loading ? <Loader className="animate-spin" /> : t('runButton')}
             </Button>
           </CardFooter>
         </Card>
@@ -139,11 +139,11 @@ export default function DcaSimulatorPage() {
       <div className="lg:col-span-2">
         <Card className="h-full">
           <CardHeader>
-            <CardTitle className="font-headline">{t('DCA.resultsTitle')}</CardTitle>
+            <CardTitle className="font-headline">{t('resultsTitle')}</CardTitle>
             <CardDescription>
               {result && !loading
-                ? `${t('DCA.finalValue')}: $${result.finalValue} | ${t('DCA.totalInvested')}: $${result.totalInvested} | ${t('DCA.roi')}: ${result.roi}%`
-                : t('DCA.runToSeeResults')}
+                ? `${t('finalValue')}: $${result.finalValue} | ${t('totalInvested')}: $${result.totalInvested} | ${t('roi')}: ${result.roi}%`
+                : t('runToSeeResults')}
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[400px]">

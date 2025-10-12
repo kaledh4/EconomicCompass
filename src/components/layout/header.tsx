@@ -15,14 +15,18 @@ import { SidebarNav } from './sidebar';
 import { ThemeToggle } from '../theme-toggle';
 import { UserNav } from '../user-nav';
 import { LanguageToggle } from '../language-toggle';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 
 export function Header() {
   const pathname = usePathname();
-  const { t } = useI18n();
+  const t = useTranslations();
   const navLinks = getNavLinks(t);
+  
+  // Clean the pathname to match the href in navLinks
+  const cleanedPathname = pathname.split('/').slice(0, 2).join('/');
+  
   const pageTitle =
-    navLinks.find((link) => link.href === pathname)?.label || t('Dashboard.title');
+    navLinks.find((link) => link.href === cleanedPathname)?.label || t('Dashboard.title');
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">

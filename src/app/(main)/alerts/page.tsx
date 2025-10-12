@@ -3,25 +3,25 @@
 import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { Bell, Bot, Loader } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 import { getEconomicAlerts } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useI18n } from '@/contexts/i18n-context';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
-  const { t } = useI18n();
+  const t = useTranslations('Alerts');
   return (
     <Button type="submit" disabled={pending} className="w-full">
       {pending ? (
         <>
-          <Loader className="mr-2 h-4 w-4 animate-spin" /> {t('Alerts.generating')}
+          <Loader className="mr-2 h-4 w-4 animate-spin" /> {t('generating')}
         </>
       ) : (
-        t('Alerts.generateButton')
+        t('generateButton')
       )}
     </Button>
   );
@@ -30,22 +30,22 @@ function SubmitButton() {
 export default function AlertsPage() {
   const initialState = { alerts: [], error: undefined };
   const [state, formAction] = useActionState(getEconomicAlerts, initialState);
-  const { t } = useI18n();
+  const t = useTranslations('Alerts');
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle asChild><h2 className="font-headline">{t('Alerts.cardTitle')}</h2></CardTitle>
+          <CardTitle asChild><h2 className="font-headline">{t('cardTitle')}</h2></CardTitle>
           <CardDescription asChild>
-            <p>{t('Alerts.cardDescription')}</p>
+            <p>{t('cardDescription')}</p>
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form action={formAction} className="space-y-4">
             <Textarea
               name="currentEvents"
-              placeholder={t('Alerts.textareaPlaceholder')}
+              placeholder={t('textareaPlaceholder')}
               className="min-h-[150px]"
               required
             />
@@ -60,11 +60,11 @@ export default function AlertsPage() {
         <CardHeader>
           <CardTitle asChild>
             <h2 className="font-headline flex items-center gap-2">
-              <Bot /> {t('Alerts.generatedTitle')}
+              <Bot /> {t('generatedTitle')}
             </h2>
           </CardTitle>
           <CardDescription asChild>
-            <p>{t('Alerts.generatedDescription')}</p>
+            <p>{t('generatedDescription')}</p>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -72,14 +72,14 @@ export default function AlertsPage() {
             state.alerts.map((alert, index) => (
               <Alert key={index}>
                 <Bell className="h-4 w-4" />
-                <AlertTitle>{t('Alerts.alertLabel')}</AlertTitle>
+                <AlertTitle>{t('alertLabel')}</AlertTitle>
                 <AlertDescription>{alert}</AlertDescription>
               </Alert>
             ))
           ) : (
             <div className="flex h-full min-h-[150px] items-center justify-center rounded-lg border border-dashed">
               <p className="text-muted-foreground">
-                {t('Alerts.noAlerts')}
+                {t('noAlerts')}
               </p>
             </div>
           )}

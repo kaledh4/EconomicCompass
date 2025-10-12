@@ -12,7 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 
 interface SidebarNavProps {
   isMobile?: boolean;
@@ -20,20 +20,23 @@ interface SidebarNavProps {
 
 export function SidebarNav({ isMobile = false }: SidebarNavProps) {
   const pathname = usePathname();
-  const { t } = useI18n();
+  const t = useTranslations();
   const navLinks = getNavLinks(t);
 
   return (
     <>
       {navLinks.map((link) => {
         const Icon = link.icon;
+        const cleanedPathname = pathname.split('/').slice(0, 2).join('/');
+        const isActive = cleanedPathname === link.href;
+
         return isMobile ? (
           <Link
             key={link.href}
             href={link.href}
             className={cn(
               'flex items-center gap-4 px-2.5',
-              pathname === link.href
+              isActive
                 ? 'text-foreground'
                 : 'text-muted-foreground hover:text-foreground'
             )}
@@ -48,7 +51,7 @@ export function SidebarNav({ isMobile = false }: SidebarNavProps) {
                 href={link.href}
                 className={cn(
                   'flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8',
-                  pathname === link.href
+                  isActive
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
@@ -69,7 +72,7 @@ export function SidebarNav({ isMobile = false }: SidebarNavProps) {
 
 
 export function Sidebar() {
-  const { t } = useI18n();
+  const t = useTranslations();
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <TooltipProvider>

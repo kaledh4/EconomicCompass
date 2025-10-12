@@ -18,10 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useI18n } from '@/contexts/i18n-context';
+import { useTranslations } from 'next-intl';
 
 export default function SettingsPage() {
-  const { t } = useI18n();
+  const t = useTranslations('Settings');
   const {
     theme,
     setTheme,
@@ -35,19 +35,19 @@ export default function SettingsPage() {
     <div className="mx-auto max-w-2xl space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">{t('Settings.title')}</CardTitle>
+          <CardTitle className="font-headline">{t('title')}</CardTitle>
           <CardDescription>
-            {t('Settings.description')}
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
               <Label htmlFor="theme" className="flex items-center gap-2 text-base">
-                <Paintbrush className="h-4 w-4" /> {t('Settings.themeLabel')}
+                <Paintbrush className="h-4 w-4" /> {t('themeLabel')}
               </Label>
               <p className="text-sm text-muted-foreground">
-                {t('Settings.themeDescription')}
+                {t('themeDescription')}
               </p>
             </div>
             <Select
@@ -55,21 +55,21 @@ export default function SettingsPage() {
               onValueChange={(value) => setTheme(value as 'light' | 'dark')}
             >
               <SelectTrigger className="w-[120px]">
-                <SelectValue placeholder={t('Settings.selectTheme')} />
+                <SelectValue placeholder={t('selectTheme')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">{t('Settings.lightTheme')}</SelectItem>
-                <SelectItem value="dark">{t('Settings.darkTheme')}</SelectItem>
+                <SelectItem value="light">{t('lightTheme')}</SelectItem>
+                <SelectItem value="dark">{t('darkTheme')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
               <Label htmlFor="language" className="flex items-center gap-2 text-base">
-                <Languages className="h-4 w-4" /> {t('Settings.languageLabel')}
+                <Languages className="h-4 w-4" /> {t('languageLabel')}
               </Label>
               <p className="text-sm text-muted-foreground">
-                {t('Settings.languageDescription')}
+                {t('languageDescription')}
               </p>
             </div>
             <Select
@@ -77,11 +77,11 @@ export default function SettingsPage() {
               onValueChange={(value) => setLanguage(value as 'en' | 'ar')}
             >
               <SelectTrigger className="w-[120px]">
-                <SelectValue placeholder={t('Settings.selectLanguage')} />
+                <SelectValue placeholder={t('selectLanguage')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">{t('Settings.english')}</SelectItem>
-                <SelectItem value="ar">{t('Settings.arabic')}</SelectItem>
+                <SelectItem value="en">{t('english')}</SelectItem>
+                <SelectItem value="ar">{t('arabic')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -91,10 +91,10 @@ export default function SettingsPage() {
                 htmlFor="animations"
                 className="flex items-center gap-2 text-base"
               >
-                <Sparkles className="h-4 w-4" /> {t('Settings.animationsLabel')}
+                <Sparkles className="h-4 w-4" /> {t('animationsLabel')}
               </Label>
               <p className="text-sm text-muted-foreground">
-                {t('Settings.animationsDescription')}
+                {t('animationsDescription')}
               </p>
             </div>
             <Switch
