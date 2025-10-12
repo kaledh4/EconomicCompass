@@ -6,7 +6,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { SettingsProvider } from '@/contexts/settings-context';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Economic Compass',
@@ -22,11 +21,6 @@ export default async function RootLayout({
   params: { locale: string };
 }>) {
   const messages = await getMessages();
-
-  const locales = ['en', 'ar'];
-  if (!locales.includes(locale)) {
-    notFound();
-  }
 
   return (
     <html lang={locale} suppressHydrationWarning>
