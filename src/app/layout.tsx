@@ -7,6 +7,7 @@ import { SettingsProvider } from '@/contexts/settings-context';
 export const metadata: Metadata = {
   title: 'Economic Compass',
   description: 'Free, open-source macro risk & crypto analytics dashboard.',
+  manifest: '/manifest.json',
 };
 
 export default function RootLayout({
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="theme-color" content="#161a25" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
