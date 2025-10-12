@@ -1,7 +1,4 @@
 
-'use client';
-import { useEffect, useState } from 'react';
-
 import {
   ChartContainer,
   ChartTooltip,
@@ -13,7 +10,6 @@ import {
   sp500VsBtcCorrelation,
   fedDotPlotData,
 } from '@/lib/data';
-import type { MetricCardData } from '@/lib/types';
 
 import {
   Line,
@@ -24,7 +20,7 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts';
-import { useI18n } from '@/contexts/i18n-context';
+import { getTranslator } from 'next-intl/server';
 import {
   Card,
   CardContent,
@@ -33,8 +29,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { MetricCard } from '@/components/metric-card';
-import { Skeleton } from '@/components/ui/skeleton';
-
 
 const chartConfig = {
   fedRate: {
@@ -68,51 +62,17 @@ const formatDate = (value: string) => {
   });
 };
 
-function MetricCardSkeleton() {
-  return (
-    <Card>
-      <CardHeader className="pb-2">
-        <Skeleton className="h-4 w-2/4" />
-        <Skeleton className="h-8 w-1/4" />
-      </CardHeader>
-      <CardContent>
-        <Skeleton className="h-3 w-1/3" />
-        <Skeleton className="h-3 w-2/3 mt-1" />
-      </CardContent>
-    </Card>
-  )
-}
-
-export default function Dashboard() {
-  const { t } = useI18n();
-  const [macroMetrics, setMacroMetrics] = useState<MetricCardData[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function loadMetrics() {
-      setLoading(true);
-      const metrics = await getMacroMetrics(t);
-      setMacroMetrics(metrics);
-      setLoading(false);
-    }
-    loadMetrics();
-  }, [t]);
+export default async function Dashboard() {
+  // Fallback to 'en' if locale is not available.
+  const t = await getTranslator('en');
+  const macroMetrics = await getMacroMetrics(t);
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {loading ? (
-          <>
-            <MetricCardSkeleton />
-            <MetricCardSkeleton />
-            <MetricCardSkeleton />
-            <MetricCardSkeleton />
-          </>
-        ) : (
-          macroMetrics.map((metric) => (
-            <MetricCard key={metric.title} metric={metric} />
-          ))
-        )}
+        {macroMetrics.map((metric) => (
+          <MetricCard key={metric.title} metric={metric} />
+        ))}
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -247,5 +207,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-    

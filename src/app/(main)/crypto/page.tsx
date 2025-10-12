@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/chart';
 import { getCryptoMetrics, btcLogRegression, getNextHalving } from '@/lib/data';
 import type { MetricCardData } from '@/lib/types';
-import { Line, LineChart, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { Line, LineChart, XAxis, YAxis, CartesianGrid, AreaChart, Area } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
 import { MetricCard } from '@/components/metric-card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -232,5 +232,3 @@ export default function CryptoPage() {
     </div>
   );
 }
-
-    
