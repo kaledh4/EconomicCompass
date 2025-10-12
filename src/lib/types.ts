@@ -1,3 +1,4 @@
+
 import type { LucideIcon } from 'lucide-react';
 import type en from '@/locales/en.json';
 
@@ -14,7 +15,7 @@ export type MetricCardData = {
   title: string;
   value: string;
   change: string;
-  changeType: 'positive' | 'negative';
+  changeType: 'positive' | 'negative' | 'neutral';
   description: string;
   tooltipText: string;
 };
@@ -41,3 +42,5 @@ export type NewsArticle = {
     url: string;
   };
 };
+
+    

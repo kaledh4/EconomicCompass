@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { DollarSign, Bitcoin, Calendar, Calculator } from 'lucide-react';
+import { DollarSign, Bitcoin, Calendar, Calculator, Loader } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -52,13 +52,27 @@ type SimulationResult = {
 export default function DcaSimulatorPage() {
   const { t } = useI18n();
   const [investment, setInvestment] = useState('100');
-  const [asset, setAsset] = useState('BTC-USD');
+  const [asset, setAsset] = useState('BTCUSD');
   const [result, setResult] = useState<SimulationResult | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSimulate = () => {
+  const handleSimulate = async () => {
     const amount = parseFloat(investment);
     if (!isNaN(amount) && amount > 0) {
-      setResult(dcaSimulationResult(amount));
+      setLoading(true);
+      const to = new Date();
+      const from = new Date();
+      from.setFullYear(from.getFullYear() - 1);
+
+      const simResult = await dcaSimulationResult(
+        asset, 
+        amount, 
+        from.toISOString().split('T')[0],
+        to.toISOString().split('T')[0]
+      );
+
+      setResult(simResult);
+      setLoading(false);
     }
   };
   
@@ -112,12 +126,12 @@ export default function DcaSimulatorPage() {
             </div>
              <div className="space-y-2">
               <Label htmlFor="period">{t('DCA.periodLabel')}</Label>
-               <Input id="period" value={`${t('DCA.oneYear')} (${currentYear - 1})`} disabled />
+               <Input id="period" value={`${t('DCA.oneYear')} (${currentYear - 1} - ${currentYear})`} disabled />
             </div>
           </CardContent>
           <CardFooter>
-            <Button onClick={handleSimulate} className="w-full">
-              {t('DCA.runButton')}
+            <Button onClick={handleSimulate} className="w-full" disabled={loading}>
+              {loading ? <Loader className="animate-spin" /> : t('DCA.runButton')}
             </Button>
           </CardFooter>
         </Card>
@@ -127,13 +141,17 @@ export default function DcaSimulatorPage() {
           <CardHeader>
             <CardTitle className="font-headline">{t('DCA.resultsTitle')}</CardTitle>
             <CardDescription>
-              {result
+              {result && !loading
                 ? `${t('DCA.finalValue')}: $${result.finalValue} | ${t('DCA.totalInvested')}: $${result.totalInvested} | ${t('DCA.roi')}: ${result.roi}%`
                 : t('DCA.runToSeeResults')}
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[400px]">
-            {result ? (
+            {loading ? (
+              <div className="flex h-full items-center justify-center text-muted-foreground">
+                <Loader className="h-16 w-16 animate-spin" />
+              </div>
+            ) : result ? (
               <ChartContainer
                 config={chartConfig}
                 className="h-full w-full"
@@ -191,3 +209,5 @@ export default function DcaSimulatorPage() {
     </div>
   );
 }
+
+    

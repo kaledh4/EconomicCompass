@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -13,10 +14,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { cryptoMetrics, btcLogRegression, getNextHalving } from '@/lib/data';
+import { getCryptoMetrics, btcLogRegression, getNextHalving } from '@/lib/data';
+import type { MetricCardData } from '@/lib/types';
 import { Line, LineChart, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
 import { MetricCard } from '@/components/metric-card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const chartConfig = {
   price: {
@@ -97,16 +100,47 @@ function HalvingCountdown() {
   );
 }
 
+
+function MetricCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <Skeleton className="h-4 w-2/4" />
+        <Skeleton className="h-8 w-1/4" />
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="h-3 w-1/3" />
+        <Skeleton className="h-3 w-2/3 mt-1" />
+      </CardContent>
+    </Card>
+  )
+}
+
 export default function CryptoPage() {
   const { t } = useI18n();
-  const metrics = cryptoMetrics(t);
+  const [metrics, setMetrics] = useState<MetricCardData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadMetrics() {
+      setLoading(true);
+      const metrics = await getCryptoMetrics(t);
+      setMetrics(metrics);
+      setLoading(false);
+    }
+    loadMetrics();
+  }, [t]);
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {metrics.map((metric) => (
-          <MetricCard key={metric.title} metric={metric} />
-        ))}
+        {loading ? (
+          Array.from({ length: 8 }).map((_, i) => <MetricCardSkeleton key={i} />)
+        ) : (
+          metrics.map((metric) => (
+            <MetricCard key={metric.title} metric={metric} />
+          ))
+        )}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
@@ -198,3 +232,5 @@ export default function CryptoPage() {
     </div>
   );
 }
+
+    

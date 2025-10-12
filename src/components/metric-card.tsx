@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -22,6 +23,13 @@ interface MetricCardProps {
 }
 
 export function MetricCard({ metric }: MetricCardProps) {
+  const changeColor =
+    metric.changeType === 'positive'
+      ? 'text-green-500'
+      : metric.changeType === 'negative'
+      ? 'text-red-500'
+      : 'text-muted-foreground';
+
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -46,9 +54,7 @@ export function MetricCard({ metric }: MetricCardProps) {
         <div
           className={cn(
             'text-xs',
-            metric.changeType === 'positive'
-              ? 'text-green-500'
-              : 'text-red-500'
+            changeColor
           )}
         >
           {metric.change}
@@ -58,3 +64,5 @@ export function MetricCard({ metric }: MetricCardProps) {
     </Card>
   );
 }
+
+    

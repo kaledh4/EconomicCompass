@@ -1,3 +1,4 @@
+
 {
   "appName": "Economic Compass",
   "Dashboard": {
@@ -26,8 +27,8 @@
     "m2Description": "Total liquid assets",
     "m2Tooltip": "Represents the total amount of money in circulation. A rapid increase can signal future inflationary conditions, prompting the Fed to tighten policy. A decrease in M2 is deflationary.",
     "recessionProb": "Recession Probability",
-    "recessionProbDescription": "NY Fed recession model",
-    "recessionProbTooltip": "Uses the yield curve to predict the probability of a U.S. recession within the next 12 months. A high probability leads to investor risk-off sentiment, negatively impacting crypto.",
+    "recessionProbDescription": "Based on Treasury Yield Curve",
+    "recessionProbTooltip": "Uses the yield curve to predict the probability of a U.S. recession. An inverted curve (negative value) is a classic indicator. High probability leads to risk-off sentiment.",
     "vsLastMonth": "{{val}} vs last month",
     "correlationTitle": "S&P 500 vs. BTC Correlation (90-Day)",
     "correlationDescription": "Measures how closely Bitcoin's price movement tracks the S&P 500 index.",
@@ -41,7 +42,7 @@
     "btcPriceTooltip": "The current price of Bitcoin. Its movement influences the entire crypto market.",
     "ethPrice": "Ethereum Price",
     "ethPriceTooltip": "The current price of Ethereum, the second-largest crypto by market cap and a major platform for decentralized applications.",
-    "inLast24h": "{{val}} in last 24h",
+    "inLast24h": "{{val}}",
     "fearAndGreed": "Fear & Greed Index",
     "fearAndGreedTooltip": "Measures market sentiment (0 = Extreme Fear, 100 = Extreme Greed). Can be a contrarian indicator that the market is due for a correction.",
     "greed": "Greed",
@@ -139,3 +140,5 @@
     "avax": "Avalanche"
   }
 }
+
+    
