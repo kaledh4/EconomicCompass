@@ -1,9 +1,8 @@
 
 import type { LucideIcon } from 'lucide-react';
-import type en from '@/locales/en.json';
 
 // A function that takes a translation key and returns a string
-export type I18n = (key: keyof typeof en | string, params?: Record<string, string | number>) => string;
+export type I18n = (key: string, params?: Record<string, string | number>) => string;
 
 export type NavLink = {
   href: string;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useState, useEffect, useMemo } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 type Language = 'en' | 'ar';
 type Theme = 'dark' | 'light';
@@ -21,6 +22,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('en');
   const [animationsEnabled, setAnimationsEnabledState] = useState<boolean>(true);
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const storedTheme = (localStorage.getItem('theme') as Theme) || 'dark';
@@ -44,12 +47,12 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isMounted) {
-      const root = window.document.documentElement;
-      root.lang = language;
-      root.dir = language === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
       localStorage.setItem('language', language);
     }
   }, [language, isMounted]);
+
 
   useEffect(() => {
     if (isMounted) {
@@ -63,6 +66,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
 
   const setLanguage = (newLanguage: Language) => {
     setLanguageState(newLanguage);
+    const newPath = pathname.replace(`/${language}`, `/${newLanguage}`);
+    router.push(newPath);
   };
 
   const setAnimationsEnabled = (enabled: boolean) => {
