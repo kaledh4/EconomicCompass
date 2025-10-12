@@ -1,4 +1,3 @@
-
 import type {
   MetricCardData,
   ChartDataPoint,
@@ -381,5 +380,3 @@ export async function getNewsFeed() {
   const newsData = await fetchGNews();
   return newsData;
 }
-
-    

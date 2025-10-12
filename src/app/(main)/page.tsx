@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import {
   ChartContainer,
   ChartTooltip,
@@ -18,7 +21,7 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import {
   Card,
   CardContent,
@@ -28,6 +31,8 @@ import {
 } from '@/components/ui/card';
 import { MetricCard } from '@/components/metric-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import type { MetricCardData } from '@/lib/types';
+
 
 const chartConfig = {
   fedRate: {
@@ -76,10 +81,21 @@ function MetricCardSkeleton() {
   );
 }
 
-export default async function Dashboard() {
-  const t = await getTranslations('Macro');
-  const metrics = await getMacroMetrics(t);
-  const loading = false; // Data is pre-fetched on the server
+export default function Dashboard() {
+  const t = useTranslations('Macro');
+  const [metrics, setMetrics] = useState<MetricCardData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadMetrics() {
+      setLoading(true);
+      const metrics = await getMacroMetrics(t);
+      setMetrics(metrics);
+      setLoading(false);
+    }
+    loadMetrics();
+  }, [t]);
+
 
   return (
     <div className="space-y-6">
