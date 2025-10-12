@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import * as LucideIcons from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
@@ -24,7 +23,7 @@ export function SidebarNav({ isMobile = false }: SidebarNavProps) {
   return (
     <>
       {NAV_LINKS.map((link) => {
-        const Icon = (LucideIcons as any)[link.icon];
+        const Icon = link.icon;
         return isMobile ? (
           <Link
             key={link.href}
