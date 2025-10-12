@@ -1,6 +1,7 @@
 'use client';
 
-import { useActionState, useFormStatus } from 'react';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { Bell, Bot, Loader } from 'lucide-react';
 
 import { getEconomicAlerts } from '@/app/actions';
@@ -35,9 +36,9 @@ export default function AlertsPage() {
     <div className="grid gap-6 md:grid-cols-2">
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">{t('Alerts.cardTitle')}</CardTitle>
-          <CardDescription>
-            {t('Alerts.cardDescription')}
+          <CardTitle asChild><h2 className="font-headline">{t('Alerts.cardTitle')}</h2></CardTitle>
+          <CardDescription asChild>
+            <p>{t('Alerts.cardDescription')}</p>
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -57,11 +58,13 @@ export default function AlertsPage() {
       </Card>
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline flex items-center gap-2">
-            <Bot /> {t('Alerts.generatedTitle')}
+          <CardTitle asChild>
+            <h2 className="font-headline flex items-center gap-2">
+              <Bot /> {t('Alerts.generatedTitle')}
+            </h2>
           </CardTitle>
-          <CardDescription>
-            {t('Alerts.generatedDescription')}
+          <CardDescription asChild>
+            <p>{t('Alerts.generatedDescription')}</p>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
