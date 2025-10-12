@@ -16,10 +16,10 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { Scatter, ScatterChart, CartesianGrid, XAxis, YAxis, Label } from 'recharts';
-import { optimizerAssets, efficientFrontierData } from '@/lib/data';
-import type { PortfolioAsset } from '@/lib/types';
+import { optimizerAssets as getOptimizerAssets, efficientFrontierData } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
+import { useI18n } from '@/contexts/i18n-context';
+
 
 const chartConfig = {
   risk: {
@@ -33,8 +33,10 @@ const chartConfig = {
 };
 
 export default function OptimizerPage() {
+  const { t } = useI18n();
   const [selectedAssets, setSelectedAssets] = useState<string[]>(['BTC-USD', 'ETH-USD']);
   const [showResult, setShowResult] = useState(false);
+  const optimizerAssets = getOptimizerAssets(t);
 
   const toggleAsset = (ticker: string) => {
     setSelectedAssets((prev) =>
@@ -56,9 +58,9 @@ export default function OptimizerPage() {
       <div className="lg:col-span-1">
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">Portfolio Optimizer</CardTitle>
+            <CardTitle className="font-headline">{t('Optimizer.title')}</CardTitle>
             <CardDescription>
-              Find the optimal allocation for your crypto portfolio using Modern Portfolio Theory. Select 2 or more assets.
+              {t('Optimizer.description')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -77,7 +79,7 @@ export default function OptimizerPage() {
           </CardContent>
           <CardContent>
              <Button onClick={handleOptimize} className="w-full" disabled={selectedAssets.length < 2}>
-              Calculate Efficient Frontier
+              {t('Optimizer.calculateButton')}
             </Button>
           </CardContent>
         </Card>
@@ -85,11 +87,11 @@ export default function OptimizerPage() {
       <div className="lg:col-span-2">
         <Card className="h-full">
           <CardHeader>
-            <CardTitle className="font-headline">Efficient Frontier</CardTitle>
+            <CardTitle className="font-headline">{t('Optimizer.resultsTitle')}</CardTitle>
              <CardDescription>
               {showResult
-                ? 'Each point represents an optimal portfolio for a given level of risk.'
-                : 'Select assets and calculate to see the efficient frontier.'}
+                ? t('Optimizer.resultsDescription')
+                : t('Optimizer.selectAndCalculate')}
             </CardDescription>
           </CardHeader>
           <CardContent className="h-[400px]">
@@ -100,22 +102,22 @@ export default function OptimizerPage() {
                 <XAxis
                   type="number"
                   dataKey="Risk"
-                  name="Risk"
+                  name={t('Optimizer.riskLabel')}
                   unit=""
                   tickLine={false} axisLine={false}
                   tickMargin={8}
                 >
-                  <Label value="Risk (Standard Deviation)" offset={-25} position="insideBottom" />
+                  <Label value={t('Optimizer.riskAxisLabel')} offset={-25} position="insideBottom" />
                 </XAxis>
                 <YAxis
                   type="number"
                   dataKey="Return"
-                  name="Return"
+                  name={t('Optimizer.returnLabel')}
                   unit=""
                   tickLine={false} axisLine={false}
                   tickMargin={8}
                 >
-                   <Label value="Expected Return" angle={-90} position="insideLeft" style={{ textAnchor: 'middle' }} />
+                   <Label value={t('Optimizer.returnAxisLabel')} angle={-90} position="insideLeft" style={{ textAnchor: 'middle' }} />
                 </YAxis>
                 <ChartTooltip
                   cursor={{ strokeDasharray: '3 3' }}

@@ -1,6 +1,6 @@
 'use client';
 
-import { Paintbrush, Sparkles } from 'lucide-react';
+import { Paintbrush, Sparkles, Languages } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -18,11 +18,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useI18n } from '@/contexts/i18n-context';
 
 export default function SettingsPage() {
+  const { t } = useI18n();
   const {
     theme,
     setTheme,
+    language,
+    setLanguage,
     animationsEnabled,
     setAnimationsEnabled,
   } = useSettings();
@@ -31,19 +35,19 @@ export default function SettingsPage() {
     <div className="mx-auto max-w-2xl space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Settings</CardTitle>
+          <CardTitle className="font-headline">{t('Settings.title')}</CardTitle>
           <CardDescription>
-            Manage your application and display settings.
+            {t('Settings.description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
               <Label htmlFor="theme" className="flex items-center gap-2 text-base">
-                <Paintbrush className="h-4 w-4" /> Theme
+                <Paintbrush className="h-4 w-4" /> {t('Settings.themeLabel')}
               </Label>
               <p className="text-sm text-muted-foreground">
-                Select a light or dark theme for the interface.
+                {t('Settings.themeDescription')}
               </p>
             </div>
             <Select
@@ -51,11 +55,33 @@ export default function SettingsPage() {
               onValueChange={(value) => setTheme(value as 'light' | 'dark')}
             >
               <SelectTrigger className="w-[120px]">
-                <SelectValue placeholder="Select theme" />
+                <SelectValue placeholder={t('Settings.selectTheme')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
+                <SelectItem value="light">{t('Settings.lightTheme')}</SelectItem>
+                <SelectItem value="dark">{t('Settings.darkTheme')}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center justify-between rounded-lg border p-4">
+            <div className="space-y-0.5">
+              <Label htmlFor="language" className="flex items-center gap-2 text-base">
+                <Languages className="h-4 w-4" /> {t('Settings.languageLabel')}
+              </Label>
+              <p className="text-sm text-muted-foreground">
+                {t('Settings.languageDescription')}
+              </p>
+            </div>
+            <Select
+              value={language}
+              onValueChange={(value) => setLanguage(value as 'en' | 'ar')}
+            >
+              <SelectTrigger className="w-[120px]">
+                <SelectValue placeholder={t('Settings.selectLanguage')} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="en">{t('Settings.english')}</SelectItem>
+                <SelectItem value="ar">{t('Settings.arabic')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -65,10 +91,10 @@ export default function SettingsPage() {
                 htmlFor="animations"
                 className="flex items-center gap-2 text-base"
               >
-                <Sparkles className="h-4 w-4" /> Animations
+                <Sparkles className="h-4 w-4" /> {t('Settings.animationsLabel')}
               </Label>
               <p className="text-sm text-muted-foreground">
-                Enable or disable subtle UI animations.
+                {t('Settings.animationsDescription')}
               </p>
             </div>
             <Switch

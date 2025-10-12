@@ -3,6 +3,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { SettingsProvider } from '@/contexts/settings-context';
+import { I18nProvider } from '@/contexts/i18n-context';
 
 export const metadata: Metadata = {
   title: 'Economic Compass',
@@ -32,8 +33,10 @@ export default function RootLayout({
       </head>
       <body className={cn('font-body antialiased')}>
         <SettingsProvider>
-          {children}
-          <Toaster />
+          <I18nProvider>
+            {children}
+            <Toaster />
+          </I18nProvider>
         </SettingsProvider>
       </body>
     </html>

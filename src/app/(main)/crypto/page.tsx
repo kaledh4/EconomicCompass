@@ -16,6 +16,7 @@ import {
 import { cn } from '@/lib/utils';
 import { cryptoMetrics, btcLogRegression, getNextHalving } from '@/lib/data';
 import { Line, LineChart, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { useI18n } from '@/contexts/i18n-context';
 
 const chartConfig = {
   price: {
@@ -33,6 +34,7 @@ const chartConfig = {
 };
 
 function HalvingCountdown() {
+  const { t } = useI18n();
   const [countdown, setCountdown] = useState({
     days: 0,
     hours: 0,
@@ -71,35 +73,38 @@ function HalvingCountdown() {
         <div className="text-2xl font-bold">
           {String(countdown.days).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">Days</div>
+        <div className="text-xs text-muted-foreground">{t('Crypto.days')}</div>
       </div>
       <div>
         <div className="text-2xl font-bold">
           {String(countdown.hours).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">Hours</div>
+        <div className="text-xs text-muted-foreground">{t('Crypto.hours')}</div>
       </div>
       <div>
         <div className="text-2xl font-bold">
           {String(countdown.minutes).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">Mins</div>
+        <div className="text-xs text-muted-foreground">{t('Crypto.mins')}</div>
       </div>
       <div>
         <div className="text-2xl font-bold">
           {String(countdown.seconds).padStart(2, '0')}
         </div>
-        <div className="text-xs text-muted-foreground">Secs</div>
+        <div className="text-xs text-muted-foreground">{t('Crypto.secs')}</div>
       </div>
     </div>
   );
 }
 
 export default function CryptoPage() {
+  const { t } = useI18n();
+  const metrics = cryptoMetrics(t);
+  
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {cryptoMetrics.map((metric) => (
+        {metrics.map((metric) => (
           <Card key={metric.title}>
             <CardHeader className="pb-2">
               <CardDescription>{metric.description}</CardDescription>
@@ -127,13 +132,10 @@ export default function CryptoPage() {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">Bitcoin Logarithmic Regression</h3>
+              <h3 className="font-headline">{t('Crypto.logRegTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>
-                Visualizing Bitcoin's long-term price cycles and potential tops
-                and bottoms.
-              </p>
+              <p>{t('Crypto.logRegDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -200,10 +202,10 @@ export default function CryptoPage() {
           <Card>
             <CardHeader>
               <CardTitle asChild>
-                <h3 className="font-headline">Next Halving Countdown</h3>
+                <h3 className="font-headline">{t('Crypto.halvingTitle')}</h3>
               </CardTitle>
               <CardDescription>
-                Estimated time until the next Bitcoin block reward halving.
+                {t('Crypto.halvingDescription')}
               </CardDescription>
             </CardHeader>
             <CardContent>

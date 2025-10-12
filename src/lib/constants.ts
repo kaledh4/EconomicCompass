@@ -7,14 +7,16 @@ import {
   Bell,
   Newspaper,
 } from 'lucide-react';
+import type { I18n } from './types';
 
-export const NAV_LINKS: NavLink[] = [
-  { href: '/', label: 'Macro Dashboard', icon: LayoutDashboard },
-  { href: '/crypto', label: 'Crypto Overview', icon: Bitcoin },
-  { href: '/dca', label: 'DCA Simulator', icon: Calculator },
-  { href: '/optimizer', label: 'Portfolio Optimizer', icon: Target },
-  { href: '/alerts', label: 'Economic Alerts', icon: Bell },
-  { href: '/news', label: 'News', icon: Newspaper },
+
+export const getNavLinks = (t: I18n): NavLink[] => [
+  { href: '/', label: t('Nav.macro'), icon: LayoutDashboard },
+  { href: '/crypto', label: t('Nav.crypto'), icon: Bitcoin },
+  { href: '/dca', label: t('Nav.dca'), icon: Calculator },
+  { href: '/optimizer', label: t('Nav.optimizer'), icon: Target },
+  { href: '/alerts', label: t('Nav.alerts'), icon: Bell },
+  { href: '/news', label: t('Nav.news'), icon: Newspaper },
 ];
 
 export const MOCK_USER = {

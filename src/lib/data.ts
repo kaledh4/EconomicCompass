@@ -3,6 +3,7 @@ import type {
   ChartDataPoint,
   PortfolioAsset,
   NewsArticle,
+  I18n,
 } from './types';
 
 const FRED_API_KEY = process.env.FRED_API_KEY;
@@ -18,7 +19,8 @@ async function fetchFredSeries(seriesId: string, limit = 1) {
     return null;
   const url = `${fredApiUrl}/series/observations?series_id=${seriesId}&api_key=${FRED_API_KEY}&file_type=json&sort_order=desc&limit=${limit}`;
   try {
-    const response = await fetch(url, { cache: 'no-store' });
+    const response = await fetch(url, { next: { revalidate: 3600 } });
+    if (!response.ok) throw new Error('Failed to fetch FRED data');
     const data = await response.json();
     return data.observations;
   } catch (error) {
@@ -31,7 +33,8 @@ async function fetchFmpQuote(ticker: string) {
   if (!FMP_API_KEY || FMP_API_KEY === 'PASTE_YOUR_FMP_API_KEY_HERE') return null;
   const url = `${fmpApiUrl}/quote/${ticker}?apikey=${FMP_API_KEY}`;
   try {
-    const response = await fetch(url, { cache: 'no-store' });
+    const response = await fetch(url, { next: { revalidate: 60 } });
+     if (!response.ok) throw new Error('Failed to fetch FMP quote');
     const data = await response.json();
     return data[0];
   } catch (error) {
@@ -45,7 +48,8 @@ async function fetchFmpHistorical(ticker: string, days = 365) {
     return null;
   const url = `${fmpApiUrl}/historical-price-full/${ticker}?timeseries=${days}&apikey=${FMP_API_KEY}`;
   try {
-    const response = await fetch(url, { cache: 'no-store' });
+    const response = await fetch(url, { next: { revalidate: 3600 } });
+    if (!response.ok) throw new Error('Failed to fetch FMP historical data');
     const data = await response.json();
     return data.historical;
   } catch (error) {
@@ -61,13 +65,13 @@ async function fetchGNews() {
       articles: [],
     };
   }
-  const url = `${gnewsApiUrl}/top-headlines?category=business&lang=en&q=crypto|forex|economy&max=10&apikey=${GNEWS_API_KEY}`;
+  const url = `${gnewsApiUrl}/top-headlines?category=business&lang=en&q=crypto|forex|economy&max=9&apikey=${GNEWS_API_KEY}`;
   try {
-    const response = await fetch(url, { cache: 'no-store' });
+    const response = await fetch(url, { next: { revalidate: 3600 }});
     const data = await response.json();
     if (response.status !== 200) {
       return {
-        error: data.errors.join(', ') || 'An unknown error occurred with GNews.',
+        error: data.errors?.join(', ') || 'An unknown error occurred with GNews.',
         articles: [],
       };
     }
@@ -82,34 +86,34 @@ async function fetchGNews() {
 }
 
 // --- Data for Global Macro Dashboard ---
-export const macroMetrics: MetricCard[] = [
+export const macroMetrics = (t: I18n): MetricCard[] => [
   {
-    title: 'Fed Funds Rate',
+    title: t('Macro.fedFundsRate'),
     value: '5.33%',
     change: '+0.08%',
     changeType: 'negative',
-    description: 'Federal Reserve target rate',
+    description: t('Macro.fedFundsRateDescription'),
   },
   {
-    title: 'CPI Inflation (YoY)',
+    title: t('Macro.cpi'),
     value: '3.4%',
-    change: '-0.1% vs last month',
+    change: t('Macro.vsLastMonth', { val: '-0.1%' }),
     changeType: 'positive',
-    description: 'Consumer Price Index',
+    description: t('Macro.cpiDescription'),
   },
   {
-    title: 'M2 Money Supply',
+    title: t('Macro.m2'),
     value: '$20.8T',
-    change: '+0.2% vs last month',
+    change: t('Macro.vsLastMonth', { val: '+0.2%' }),
     changeType: 'negative',
-    description: 'Total liquid assets',
+    description: t('Macro.m2Description'),
   },
   {
-    title: 'Recession Probability',
+    title: t('Macro.recessionProb'),
     value: '45%',
-    change: '-5% vs last month',
+    change: t('Macro.vsLastMonth', { val: '-5%' }),
     changeType: 'positive',
-    description: 'NY Fed recession model',
+    description: t('Macro.recessionProbDescription'),
   },
 ];
 
@@ -163,62 +167,62 @@ export const fedDotPlotData: { year: string, rate: number }[] = [
 
 
 // --- Data for Crypto Market Overview ---
-export const cryptoMetrics: MetricCard[] = [
+export const cryptoMetrics = (t: I18n): MetricCard[] => [
   {
-    title: 'Bitcoin Price',
+    title: t('Crypto.btcPrice'),
     value: '$65,432',
-    change: '+2.1% in last 24h',
+    change: t('Crypto.inLast24h', { val: '+2.1%' }),
     changeType: 'positive',
     description: 'BTC/USD',
   },
   {
-    title: 'Ethereum Price',
+    title: t('Crypto.ethPrice'),
     value: '$3,480',
-    change: '+4.5% in last 24h',
+    change: t('Crypto.inLast24h', { val: '+4.5%' }),
     changeType: 'positive',
     description: 'ETH/USD',
   },
   {
-    title: 'Fear & Greed Index',
+    title: t('Crypto.fearAndGreed'),
     value: '72',
-    change: 'Greed',
+    change: t('Crypto.greed'),
     changeType: 'positive',
-    description: 'Market Sentiment',
+    description: t('Crypto.marketSentiment'),
   },
   {
-    title: 'Total Mkt Cap',
+    title: t('Crypto.totalMarketCap'),
     value: '$2.45T',
-    change: '+3.1% in last 24h',
+    change: t('Crypto.inLast24h', { val: '+3.1%' }),
     changeType: 'positive',
-    description: 'Total Crypto Value',
+    description: t('Crypto.totalMarketCapDescription'),
   },
   {
-    title: 'BTC Dominance',
+    title: t('Crypto.btcDominance'),
     value: '54.2%',
-    change: '+0.5% in last 24h',
+    change: t('Crypto.inLast24h', { val: '+0.5%' }),
     changeType: 'positive',
-    description: 'BTC Market Share',
+    description: t('Crypto.btcDominanceDescription'),
   },
   {
-    title: 'ETH/BTC Ratio',
+    title: t('Crypto.ethBtcRatio'),
     value: '0.0531',
-    change: '-1.2% in last 24h',
+    change: t('Crypto.inLast24h', { val: '-1.2%' }),
     changeType: 'negative',
-    description: 'ETH Strength vs. BTC',
+    description: t('Crypto.ethBtcRatioDescription'),
   },
   {
-    title: 'Total 2 (BTC+ETH)',
+    title: t('Crypto.total2'),
     value: '$1.59T',
-    change: '+2.8% in last 24h',
+    change: t('Crypto.inLast24h', { val: '+2.8%' }),
     changeType: 'positive',
-    description: 'Combined Market Cap',
+    description: t('Crypto.total2Description'),
   },
   {
-    title: 'Total 3 (Excl. BTC/ETH)',
+    title: t('Crypto.total3'),
     value: '$0.86T',
-    change: '+4.2% in last 24h',
+    change: t('Crypto.inLast24h', { val: '+4.2%' }),
     changeType: 'positive',
-    description: 'Altcoin Market Cap',
+    description: t('Crypto.total3Description'),
   },
 ];
 
@@ -227,9 +231,6 @@ export function getNextHalving() {
   const LAST_HALVING_BLOCK = 840000;
   const LAST_HALVING_DATE = new Date('2024-04-20T00:09:00Z');
   const AVG_BLOCK_TIME_MS = 10 * 60 * 1000;
-
-  const blocksUntilNextHalving = BLOCKS_PER_HALVING;
-  const msUntilNextHalving = blocksUntilNextHalving * AVG_BLOCK_TIME_MS;
 
   // This is an estimation. For a real app, you'd fetch the current block height.
   // For this app, we'll calculate from the last known halving.
@@ -262,11 +263,11 @@ export const btcLogRegression: ChartDataPoint[] = Array.from(
 );
 
 // --- Data for DCA Simulator ---
-export const availableAssets: PortfolioAsset[] = [
-  { ticker: 'BTC-USD', name: 'Bitcoin' },
-  { ticker: 'ETH-USD', name: 'Ethereum' },
-  { ticker: 'SOL-USD', name: 'Solana' },
-  { ticker: 'DOGE-USD', name: 'Dogecoin' },
+export const availableAssets = (t: I18n): PortfolioAsset[] => [
+  { ticker: 'BTC-USD', name: t('Assets.btc') },
+  { ticker: 'ETH-USD', name: t('Assets.eth') },
+  { ticker: 'SOL-USD', name: t('Assets.sol') },
+  { ticker: 'DOGE-USD', name: t('Assets.doge') },
 ];
 
 export const dcaSimulationResult = (investment: number) => {
@@ -298,10 +299,10 @@ export const dcaSimulationResult = (investment: number) => {
 };
 
 // --- Data for Portfolio Optimizer ---
-export const optimizerAssets: PortfolioAsset[] = [
-  ...availableAssets,
-  { ticker: 'ADAUSD', name: 'Cardano' },
-  { ticker: 'AVAXUSD', name: 'Avalanche' },
+export const optimizerAssets = (t: I18n): PortfolioAsset[] => [
+  ...availableAssets(t),
+  { ticker: 'ADAUSD', name: t('Assets.ada') },
+  { ticker: 'AVAXUSD', name: t('Assets.avax') },
 ];
 
 export const efficientFrontierData: ChartDataPoint[] = Array.from(

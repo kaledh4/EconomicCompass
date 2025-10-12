@@ -1,0 +1,129 @@
+{
+  "appName": "Economic Compass",
+  "Dashboard": {
+    "title": "Dashboard"
+  },
+  "Nav": {
+    "macro": "Macro Dashboard",
+    "crypto": "Crypto Overview",
+    "dca": "DCA Simulator",
+    "optimizer": "Portfolio Optimizer",
+    "alerts": "Economic Alerts",
+    "news": "News"
+  },
+  "UserNav": {
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "Macro": {
+    "fedFundsRate": "Fed Funds Rate",
+    "fedFundsRateDescription": "Federal Reserve target rate",
+    "cpi": "CPI Inflation (YoY)",
+    "cpiDescription": "Consumer Price Index",
+    "m2": "M2 Money Supply",
+    "m2Description": "Total liquid assets",
+    "recessionProb": "Recession Probability",
+    "recessionProbDescription": "NY Fed recession model",
+    "vsLastMonth": "{{val}} vs last month",
+    "correlationTitle": "S&P 500 vs. BTC Correlation (90-Day)",
+    "correlationDescription": "Measures how closely Bitcoin's price movement tracks the S&P 500 index.",
+    "interestRateTitle": "Interest Rate History",
+    "interestRateDescription": "Federal funds effective rate over the last 24 months.",
+    "dotPlotTitle": "Fed Dot Plot (FOMC Projections)",
+    "dotPlotDescription": "Each dot represents a Fed member's projection for the federal funds rate."
+  },
+  "Crypto": {
+    "btcPrice": "Bitcoin Price",
+    "ethPrice": "Ethereum Price",
+    "inLast24h": "{{val}} in last 24h",
+    "fearAndGreed": "Fear & Greed Index",
+    "greed": "Greed",
+    "marketSentiment": "Market Sentiment",
+    "totalMarketCap": "Total Mkt Cap",
+    "totalMarketCapDescription": "Total Crypto Value",
+    "btcDominance": "BTC Dominance",
+    "btcDominanceDescription": "BTC Market Share",
+    "ethBtcRatio": "ETH/BTC Ratio",
+    "ethBtcRatioDescription": "ETH Strength vs. BTC",
+    "total2": "Total 2 (BTC+ETH)",
+    "total2Description": "Combined Market Cap",
+    "total3": "Total 3 (Excl. BTC/ETH)",
+    "total3Description": "Altcoin Market Cap",
+    "days": "Days",
+    "hours": "Hours",
+    "mins": "Mins",
+    "secs": "Secs",
+    "logRegTitle": "Bitcoin Logarithmic Regression",
+    "logRegDescription": "Visualizing Bitcoin's long-term price cycles and potential tops and bottoms.",
+    "halvingTitle": "Next Halving Countdown",
+    "halvingDescription": "Estimated time until the next Bitcoin block reward halving."
+  },
+  "DCA": {
+    "title": "DCA Simulator",
+    "description": "Backtest a dollar-cost averaging strategy.",
+    "assetLabel": "Asset",
+    "selectAsset": "Select asset",
+    "investmentLabel": "Weekly Investment",
+    "frequencyLabel": "Frequency",
+    "weekly": "Weekly",
+    "periodLabel": "Time Period",
+    "oneYear": "1 Year",
+    "runButton": "Run Simulation",
+    "resultsTitle": "Simulation Results",
+    "finalValue": "Final Value",
+    "totalInvested": "Total Invested",
+    "roi": "ROI",
+    "runToSeeResults": "Run a simulation to see the results."
+  },
+  "Optimizer": {
+    "title": "Portfolio Optimizer",
+    "description": "Find the optimal allocation for your crypto portfolio using Modern Portfolio Theory. Select 2 or more assets.",
+    "calculateButton": "Calculate Efficient Frontier",
+    "resultsTitle": "Efficient Frontier",
+    "resultsDescription": "Each point represents an optimal portfolio for a given level of risk.",
+    "selectAndCalculate": "Select assets and calculate to see the efficient frontier.",
+    "riskLabel": "Risk (Volatility)",
+    "returnLabel": "Return",
+    "riskAxisLabel": "Risk (Standard Deviation)",
+    "returnAxisLabel": "Expected Return"
+  },
+  "Alerts": {
+    "cardTitle": "Economic Alerts Feed",
+    "cardDescription": "Input a summary of recent economic news to generate relevant policy and market alerts.",
+    "textareaPlaceholder": "e.g., 'The Fed announced a 25 basis point rate hike. CPI data for last month came in higher than expected at 3.5%...'",
+    "generating": "Generating...",
+    "generateButton": "Generate Alerts",
+    "generatedTitle": "Generated Alerts",
+    "generatedDescription": "AI-powered notifications based on your input.",
+    "alertLabel": "Alert",
+    "noAlerts": "Alerts will appear here."
+  },
+  "News": {
+    "readMore": "Read More",
+    "noArticles": "No news articles found."
+  },
+  "Settings": {
+    "title": "Settings",
+    "description": "Manage your application and display settings.",
+    "themeLabel": "Theme",
+    "themeDescription": "Select a light or dark theme for the interface.",
+    "selectTheme": "Select theme",
+    "lightTheme": "Light",
+    "darkTheme": "Dark",
+    "languageLabel": "Language",
+    "languageDescription": "Select an interface language.",
+    "selectLanguage": "Select language",
+    "english": "English",
+    "arabic": "العربية",
+    "animationsLabel": "Animations",
+    "animationsDescription": "Enable or disable subtle UI animations."
+  },
+  "Assets": {
+    "btc": "Bitcoin",
+    "eth": "Ethereum",
+    "sol": "Solana",
+    "doge": "Dogecoin",
+    "ada": "Cardano",
+    "avax": "Avalanche"
+  }
+}

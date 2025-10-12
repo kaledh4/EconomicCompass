@@ -1,3 +1,4 @@
+'use client';
 import { getNewsFeed } from '@/lib/data';
 import type { NewsArticle } from '@/lib/types';
 import {
@@ -11,31 +12,67 @@ import {
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useI18n } from '@/contexts/i18n-context';
+import { useEffect, useState } from 'react';
 
-export const revalidate = 3600; // Revalidate every hour
+export default function NewsPage() {
+  const { t } = useI18n();
+  const [news, setNews] = useState<{ articles: NewsArticle[], error?: string }>({ articles: [] });
+  const [loading, setLoading] = useState(true);
 
-export default async function NewsPage() {
-  const { articles, error } = await getNewsFeed();
+  useEffect(() => {
+    async function loadNews() {
+      setLoading(true);
+      const newsData = await getNewsFeed();
+      setNews(newsData);
+      setLoading(false);
+    }
+    loadNews();
+  }, []);
 
-  if (error) {
+  if (loading) {
+     return (
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <Card key={i} className="flex animate-pulse flex-col overflow-hidden">
+            <CardHeader>
+              <div className="relative h-48 w-full bg-muted"></div>
+              <div className="h-6 w-3/4 rounded bg-muted pt-4"></div>
+              <div className="h-4 w-1/2 rounded bg-muted"></div>
+            </CardHeader>
+            <CardContent className="flex-grow space-y-2">
+              <div className="h-4 w-full rounded bg-muted"></div>
+              <div className="h-4 w-full rounded bg-muted"></div>
+              <div className="h-4 w-3/4 rounded bg-muted"></div>
+            </CardContent>
+            <CardFooter>
+              <div className="h-5 w-20 rounded bg-muted"></div>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+    );
+  }
+
+  if (news.error) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p className="text-destructive">{error}</p>
+        <p className="text-destructive">{news.error}</p>
       </div>
     );
   }
   
-  if (!articles || articles.length === 0) {
+  if (!news.articles || news.articles.length === 0) {
     return (
       <div className="flex h-full items-center justify-center">
-        <p>No news articles found.</p>
+        <p>{t('News.noArticles')}</p>
       </div>
     );
   }
 
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {articles.map((article: NewsArticle, index: number) => (
+      {news.articles.map((article: NewsArticle, index: number) => (
         <Card
           key={index}
           className="flex flex-col overflow-hidden"
@@ -72,7 +109,7 @@ export default async function NewsPage() {
               rel="noopener noreferrer"
               className="text-sm font-semibold text-primary hover:underline"
             >
-              Read More
+              {t('News.readMore')}
             </Link>
           </CardFooter>
         </Card>

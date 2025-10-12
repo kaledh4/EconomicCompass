@@ -9,17 +9,20 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { NAV_LINKS } from '@/lib/constants';
+import { getNavLinks } from '@/lib/constants';
 import { Icons } from '../icons';
 import { SidebarNav } from './sidebar';
 import { ThemeToggle } from '../theme-toggle';
 import { UserNav } from '../user-nav';
 import { LanguageToggle } from '../language-toggle';
+import { useI18n } from '@/contexts/i18n-context';
 
 export function Header() {
   const pathname = usePathname();
+  const { t } = useI18n();
+  const navLinks = getNavLinks(t);
   const pageTitle =
-    NAV_LINKS.find((link) => link.href === pathname)?.label || 'Dashboard';
+    navLinks.find((link) => link.href === pathname)?.label || t('Dashboard.title');
 
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">

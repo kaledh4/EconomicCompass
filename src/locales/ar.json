@@ -1,0 +1,129 @@
+{
+  "appName": "البوصلة الاقتصادية",
+  "Dashboard": {
+    "title": "لوحة المعلومات"
+  },
+  "Nav": {
+    "macro": "لوحة المعلومات الكلية",
+    "crypto": "نظرة عامة على التشفير",
+    "dca": "محاكي DCA",
+    "optimizer": "محسن المحفظة",
+    "alerts": "التنبيهات الاقتصادية",
+    "news": "الأخبار"
+  },
+  "UserNav": {
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "Macro": {
+    "fedFundsRate": "معدل الأموال الفيدرالية",
+    "fedFundsRateDescription": "المعدل المستهدف للاحتياطي الفيدرالي",
+    "cpi": "تضخم مؤشر أسعار المستهلك (سنوي)",
+    "cpiDescription": "مؤشر أسعار المستهلك",
+    "m2": "عرض النقود M2",
+    "m2Description": "إجمالي الأصول السائلة",
+    "recessionProb": "احتمالية الركود",
+    "recessionProbDescription": "نموذج الركود لبنك نيويورك الفيدرالي",
+    "vsLastMonth": "{{val}} مقابل الشهر الماضي",
+    "correlationTitle": "ارتباط S&P 500 مقابل BTC (90 يومًا)",
+    "correlationDescription": "يقيس مدى تتبع حركة سعر البيتكوين لمؤشر S&P 500.",
+    "interestRateTitle": "تاريخ سعر الفائدة",
+    "interestRateDescription": "المعدل الفعلي للأموال الفيدرالية على مدى الـ 24 شهرًا الماضية.",
+    "dotPlotTitle": "مخطط النقاط الفيدرالي (توقعات FOMC)",
+    "dotPlotDescription": "تمثل كل نقطة توقعات عضو في مجلس الاحتياطي الفيدرالي لسعر الفائدة على الأموال الفيدرالية."
+  },
+  "Crypto": {
+    "btcPrice": "سعر البيتكوين",
+    "ethPrice": "سعر الإيثيريوم",
+    "inLast24h": "{{val}} في آخر 24 ساعة",
+    "fearAndGreed": "مؤشر الخوف والطمع",
+    "greed": "طمع",
+    "marketSentiment": "معنويات السوق",
+    "totalMarketCap": "إجمالي القيمة السوقية",
+    "totalMarketCapDescription": "إجمالي قيمة العملات المشفرة",
+    "btcDominance": "هيمنة البيتكوين",
+    "btcDominanceDescription": "الحصة السوقية للبيتكوين",
+    "ethBtcRatio": "نسبة ETH/BTC",
+    "ethBtcRatioDescription": "قوة الإيثيريوم مقابل البيتكوين",
+    "total2": "إجمالي 2 (BTC+ETH)",
+    "total2Description": "القيمة السوقية المجمعة",
+    "total3": "إجمالي 3 (باستثناء BTC/ETH)",
+    "total3Description": "القيمة السوقية للعملات البديلة",
+    "days": "أيام",
+    "hours": "ساعات",
+    "mins": "دقائق",
+    "secs": "ثواني",
+    "logRegTitle": "الانحدار اللوغاريتمي للبيتكوين",
+    "logRegDescription": "تصور دورات أسعار البيتكوين طويلة الأجل والقمم والقيعان المحتملة.",
+    "halvingTitle": "العد التنازلي للتنصيف التالي",
+    "halvingDescription": "الوقت المقدر حتى تنصيف مكافأة كتلة البيتكوين التالية."
+  },
+  "DCA": {
+    "title": "محاكي DCA",
+    "description": "اختبار استراتيجية متوسط التكلفة بالدولار.",
+    "assetLabel": "الأصل",
+    "selectAsset": "اختر الأصل",
+    "investmentLabel": "الاستثمار الأسبوعي",
+    "frequencyLabel": "التكرار",
+    "weekly": "أسبوعي",
+    "periodLabel": "الفترة الزمنية",
+    "oneYear": "سنة واحدة",
+    "runButton": "تشغيل المحاكاة",
+    "resultsTitle": "نتائج المحاكاة",
+    "finalValue": "القيمة النهائية",
+    "totalInvested": "إجمالي الاستثمار",
+    "roi": "عائد الاستثمار",
+    "runToSeeResults": "قم بتشغيل محاكاة لرؤية النتائج."
+  },
+  "Optimizer": {
+    "title": "محسن المحفظة",
+    "description": "ابحث عن التخصيص الأمثل لمحفظة العملات المشفرة الخاصة بك باستخدام نظرية المحفظة الحديثة. اختر أصلين أو أكثر.",
+    "calculateButton": "حساب الحدود الفعالة",
+    "resultsTitle": "الحدود الفعالة",
+    "resultsDescription": "تمثل كل نقطة محفظة مثالية لمستوى معين من المخاطرة.",
+    "selectAndCalculate": "اختر الأصول واحسب لرؤية الحدود الفعالة.",
+    "riskLabel": "المخاطرة (تقلب)",
+    "returnLabel": "العائد",
+    "riskAxisLabel": "المخاطرة (الانحراف المعياري)",
+    "returnAxisLabel": "العائد المتوقع"
+  },
+  "Alerts": {
+    "cardTitle": "موجز التنبيهات الاقتصادية",
+    "cardDescription": "أدخل ملخصًا للأخبار الاقتصادية الأخيرة لإنشاء تنبيهات سياسية وسوقية ذات صلة.",
+    "textareaPlaceholder": "على سبيل المثال، 'أعلن بنك الاحتياطي الفيدرالي عن رفع سعر الفائدة بمقدار 25 نقطة أساس. جاءت بيانات مؤشر أسعار المستهلكين للشهر الماضي أعلى من المتوقع عند 3.5٪ ...'",
+    "generating": "جارٍ الإنشاء...",
+    "generateButton": "إنشاء تنبيهات",
+    "generatedTitle": "تنبيهات تم إنشاؤها",
+    "generatedDescription": "إشعارات مدعومة بالذكاء الاصطناعي بناءً على مدخلاتك.",
+    "alertLabel": "تنبيه",
+    "noAlerts": "ستظهر التنبيهات هنا."
+  },
+  "News": {
+    "readMore": "اقرأ المزيد",
+    "noArticles": "لم يتم العثور على مقالات إخبارية."
+  },
+  "Settings": {
+    "title": "الإعدادات",
+    "description": "إدارة إعدادات التطبيق والعرض.",
+    "themeLabel": "المظهر",
+    "themeDescription": "اختر مظهرًا فاتحًا أو داكنًا للواجهة.",
+    "selectTheme": "اختر المظهر",
+    "lightTheme": "فاتح",
+    "darkTheme": "داكن",
+    "languageLabel": "اللغة",
+    "languageDescription": "اختر لغة الواجهة.",
+    "selectLanguage": "اختر اللغة",
+    "english": "English",
+    "arabic": "العربية",
+    "animationsLabel": "الرسوم المتحركة",
+    "animationsDescription": "تمكين أو تعطيل الرسوم المتحركة الدقيقة لواجهة المستخدم."
+  },
+  "Assets": {
+    "btc": "بيتكوين",
+    "eth": "إيثيريوم",
+    "sol": "سولانا",
+    "doge": "دوجكوين",
+    "ada": "كاردانو",
+    "avax": "أفالانش"
+  }
+}

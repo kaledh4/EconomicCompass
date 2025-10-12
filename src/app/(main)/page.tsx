@@ -13,8 +13,9 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { cn } from '@/lib/utils';
-import { macroMetrics, interestRateHistory, sp500VsBtcCorrelation, fedDotPlotData } from '@/lib/data';
+import { macroMetrics as getMacroMetrics, interestRateHistory, sp500VsBtcCorrelation, fedDotPlotData } from '@/lib/data';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, Scatter, ScatterChart, XAxis, YAxis, Label } from 'recharts';
+import { useI18n } from '@/contexts/i18n-context';
 
 const chartConfig = {
   fedRate: {
@@ -49,6 +50,9 @@ const formatDate = (value: string) => {
 };
 
 export default function Dashboard() {
+  const { t } = useI18n();
+  const macroMetrics = getMacroMetrics(t);
+  
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -80,12 +84,10 @@ export default function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">S&amp;P 500 vs. BTC Correlation (90-Day)</h3>
+              <h3 className="font-headline">{t('Macro.correlationTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>
-                Measures how closely Bitcoin's price movement tracks the S&amp;P 500 index.
-              </p>
+              <p>{t('Macro.correlationDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -110,12 +112,10 @@ export default function Dashboard() {
         <Card>
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">Interest Rate History</h3>
+              <h3 className="font-headline">{t('Macro.interestRateTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>
-                Federal funds effective rate over the last 24 months.
-              </p>
+              <p>{t('Macro.interestRateDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -140,12 +140,10 @@ export default function Dashboard() {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle asChild>
-              <h3 className="font-headline">Fed Dot Plot (FOMC Projections)</h3>
+              <h3 className="font-headline">{t('Macro.dotPlotTitle')}</h3>
             </CardTitle>
             <CardDescription asChild>
-              <p>
-                Each dot represents a Fed member's projection for the federal funds rate.
-              </p>
+              <p>{t('Macro.dotPlotDescription')}</p>
             </CardDescription>
           </CardHeader>
           <CardContent>
