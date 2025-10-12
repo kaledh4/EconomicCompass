@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 const withPWA = require('next-pwa')({
   dest: 'public',
@@ -37,9 +38,9 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
-    FRED_API_KEY: process.env.FRED_API_KEY,
-    FMP_API_KEY: process.env.FMP_API_KEY,
-    GNEWS_API_KEY: process.env.GNEWS_API_KEY,
+    NEXT_PUBLIC_FRED_API_KEY: process.env.FRED_API_KEY,
+    NEXT_PUBLIC_FMP_API_KEY: process.env.FMP_API_KEY,
+    NEXT_PUBLIC_GNEWS_API_KEY: process.env.GNEWS_API_KEY,
   }
 };
 

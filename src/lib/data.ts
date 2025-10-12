@@ -1,3 +1,4 @@
+
 import type {
   MetricCardData,
   ChartDataPoint,
@@ -6,9 +7,9 @@ import type {
   I18n,
 } from './types';
 
-const FRED_API_KEY = process.env.FRED_API_KEY;
-const FMP_API_KEY = process.env.FMP_API_KEY;
-const GNEWS_API_KEY = process.env.GNEWS_API_KEY;
+const FRED_API_KEY = process.env.NEXT_PUBLIC_FRED_API_KEY;
+const FMP_API_KEY = process.env.NEXT_PUBLIC_FMP_API_KEY;
+const GNEWS_API_KEY = process.env.NEXT_PUBLIC_GNEWS_API_KEY;
 
 const fredApiUrl = 'https://api.stlouisfed.org/fred';
 const fmpApiUrl = 'https://financialmodelingprep.com/api/v3';
@@ -62,7 +63,7 @@ async function fetchFmpHistorical(ticker: string, from: string, to: string) {
 async function fetchGNews() {
   if (!GNEWS_API_KEY || GNEWS_API_KEY === 'PASTE_YOUR_GNEWS_API_KEY_HERE') {
     return {
-      error: 'GNews API Key not configured.',
+      error: 'GNews API Key not configured. Please add it to your .env file.',
       articles: [],
     };
   }
@@ -376,7 +377,7 @@ export const efficientFrontierData: ChartDataPoint[] = Array.from(
 ).sort((a, b) => Number(a.Risk) - Number(b.Risk));
 
 // --- News Feed ---
-export async function getNewsFeed() {
+export async function getNewsFeed(): Promise<{ articles: NewsArticle[], error?: string }> {
   const newsData = await fetchGNews();
   return newsData;
 }

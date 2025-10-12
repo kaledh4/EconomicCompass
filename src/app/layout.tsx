@@ -38,7 +38,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={cn('font-body antialiased')}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <SettingsProvider>
             {children}
             <Toaster />
