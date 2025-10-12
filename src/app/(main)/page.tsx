@@ -1,4 +1,6 @@
 
+'use client';
+
 import {
   ChartContainer,
   ChartTooltip,
@@ -10,7 +12,7 @@ import {
   sp500VsBtcCorrelation,
   fedDotPlotData,
 } from '@/lib/data';
-
+import type { MetricCardData } from '@/lib/types';
 import {
   Line,
   LineChart,
@@ -20,7 +22,7 @@ import {
   YAxis,
   CartesianGrid,
 } from 'recharts';
-import { getTranslations } from 'next-intl/server';
+import { useI18n } from '@/contexts/i18n-context';
 import {
   Card,
   CardContent,
@@ -29,6 +31,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { MetricCard } from '@/components/metric-card';
+import { useEffect, useState } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+
 
 const chartConfig = {
   fedRate: {
@@ -62,17 +67,47 @@ const formatDate = (value: string) => {
   });
 };
 
-export default async function Dashboard() {
-  // Fallback to 'en' if locale is not available.
-  const t = await getTranslations();
-  const macroMetrics = await getMacroMetrics(t);
+function MetricCardSkeleton() {
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <Skeleton className="h-4 w-2/4" />
+        <Skeleton className="h-8 w-1/4" />
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="h-3 w-1/3" />
+        <Skeleton className="h-3 w-2/3 mt-1" />
+      </CardContent>
+    </Card>
+  )
+}
+
+export default function Dashboard() {
+  const { t } = useI18n();
+  const [metrics, setMetrics] = useState<MetricCardData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadMetrics() {
+      setLoading(true);
+      const macroMetrics = await getMacroMetrics(t);
+      setMetrics(macroMetrics);
+      setLoading(false);
+    }
+    loadMetrics();
+  }, [t]);
+
 
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {macroMetrics.map((metric) => (
-          <MetricCard key={metric.title} metric={metric} />
-        ))}
+        {loading ? (
+          Array.from({ length: 4 }).map((_, i) => <MetricCardSkeleton key={i} />)
+        ) : (
+          metrics.map((metric) => (
+            <MetricCard key={metric.title} metric={metric} />
+          ))
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
