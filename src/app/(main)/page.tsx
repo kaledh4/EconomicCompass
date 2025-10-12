@@ -46,8 +46,8 @@ export default function Dashboard() {
         {macroMetrics.map((metric) => (
           <Card key={metric.title}>
             <CardHeader className="pb-2">
-              <CardDescription as="p">{metric.title}</CardDescription>
-              <CardTitle as="h3" className="text-4xl font-bold">{metric.value}</CardTitle>
+              <CardDescription>{metric.title}</CardDescription>
+              <CardTitle className="text-4xl font-bold">{metric.value}</CardTitle>
             </CardHeader>
             <CardContent>
               <div
@@ -68,8 +68,8 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle as="h2" className="font-headline">Interest Rate History</CardTitle>
-            <CardDescription as="p">
+            <CardTitle className="font-headline">Interest Rate History</CardTitle>
+            <CardDescription>
               Federal funds effective rate over the last 24 months.
             </CardDescription>
           </CardHeader>
@@ -94,8 +94,8 @@ export default function Dashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle as="h2" className="font-headline">CPI vs. BTC Returns</CardTitle>
-            <CardDescription as="p">
+            <CardTitle className="font-headline">CPI vs. BTC Returns</CardTitle>
+            <CardDescription>
               Monthly Bitcoin returns against year-over-year inflation.
             </CardDescription>
           </CardHeader>

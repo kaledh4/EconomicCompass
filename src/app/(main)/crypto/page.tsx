@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/chart';
 import { cn } from '@/lib/utils';
 import { cryptoMetrics, btcLogRegression } from '@/lib/data';
-import { Area, AreaChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { Line, LineChart, XAxis, YAxis, CartesianGrid } from 'recharts';
 
 const chartConfig = {
   price: {
