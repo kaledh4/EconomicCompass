@@ -36,6 +36,11 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  env: {
+    FRED_API_KEY: process.env.FRED_API_KEY,
+    FMP_API_KEY: process.env.FMP_API_KEY,
+    GNEWS_API_KEY: process.env.GNEWS_API_KEY,
+  }
 };
 
 export default withPWA(nextConfig);
