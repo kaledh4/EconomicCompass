@@ -1,5 +1,5 @@
 import type {
-  MetricCard,
+  MetricCardData,
   ChartDataPoint,
   PortfolioAsset,
   NewsArticle,
@@ -86,13 +86,14 @@ async function fetchGNews() {
 }
 
 // --- Data for Global Macro Dashboard ---
-export const macroMetrics = (t: I18n): MetricCard[] => [
+export const getMacroMetrics = (t: I18n): MetricCardData[] => [
   {
     title: t('Macro.fedFundsRate'),
     value: '5.33%',
     change: '+0.08%',
     changeType: 'negative',
     description: t('Macro.fedFundsRateDescription'),
+    tooltipText: t('Macro.fedFundsRateTooltip'),
   },
   {
     title: t('Macro.cpi'),
@@ -100,6 +101,7 @@ export const macroMetrics = (t: I18n): MetricCard[] => [
     change: t('Macro.vsLastMonth', { val: '-0.1%' }),
     changeType: 'positive',
     description: t('Macro.cpiDescription'),
+    tooltipText: t('Macro.cpiTooltip'),
   },
   {
     title: t('Macro.m2'),
@@ -107,6 +109,7 @@ export const macroMetrics = (t: I18n): MetricCard[] => [
     change: t('Macro.vsLastMonth', { val: '+0.2%' }),
     changeType: 'negative',
     description: t('Macro.m2Description'),
+    tooltipText: t('Macro.m2Tooltip'),
   },
   {
     title: t('Macro.recessionProb'),
@@ -114,6 +117,7 @@ export const macroMetrics = (t: I18n): MetricCard[] => [
     change: t('Macro.vsLastMonth', { val: '-5%' }),
     changeType: 'positive',
     description: t('Macro.recessionProbDescription'),
+    tooltipText: t('Macro.recessionProbTooltip'),
   },
 ];
 
@@ -167,13 +171,14 @@ export const fedDotPlotData: { year: string, rate: number }[] = [
 
 
 // --- Data for Crypto Market Overview ---
-export const cryptoMetrics = (t: I18n): MetricCard[] => [
+export const cryptoMetrics = (t: I18n): MetricCardData[] => [
   {
     title: t('Crypto.btcPrice'),
     value: '$65,432',
     change: t('Crypto.inLast24h', { val: '+2.1%' }),
     changeType: 'positive',
     description: 'BTC/USD',
+    tooltipText: t('Crypto.btcPriceTooltip'),
   },
   {
     title: t('Crypto.ethPrice'),
@@ -181,6 +186,7 @@ export const cryptoMetrics = (t: I18n): MetricCard[] => [
     change: t('Crypto.inLast24h', { val: '+4.5%' }),
     changeType: 'positive',
     description: 'ETH/USD',
+     tooltipText: t('Crypto.ethPriceTooltip'),
   },
   {
     title: t('Crypto.fearAndGreed'),
@@ -188,6 +194,7 @@ export const cryptoMetrics = (t: I18n): MetricCard[] => [
     change: t('Crypto.greed'),
     changeType: 'positive',
     description: t('Crypto.marketSentiment'),
+    tooltipText: t('Crypto.fearAndGreedTooltip'),
   },
   {
     title: t('Crypto.totalMarketCap'),
@@ -195,6 +202,7 @@ export const cryptoMetrics = (t: I18n): MetricCard[] => [
     change: t('Crypto.inLast24h', { val: '+3.1%' }),
     changeType: 'positive',
     description: t('Crypto.totalMarketCapDescription'),
+    tooltipText: t('Crypto.totalMarketCapTooltip'),
   },
   {
     title: t('Crypto.btcDominance'),
@@ -202,6 +210,7 @@ export const cryptoMetrics = (t: I18n): MetricCard[] => [
     change: t('Crypto.inLast24h', { val: '+0.5%' }),
     changeType: 'positive',
     description: t('Crypto.btcDominanceDescription'),
+    tooltipText: t('Crypto.btcDominanceTooltip'),
   },
   {
     title: t('Crypto.ethBtcRatio'),
@@ -209,6 +218,7 @@ export const cryptoMetrics = (t: I18n): MetricCard[] => [
     change: t('Crypto.inLast24h', { val: '-1.2%' }),
     changeType: 'negative',
     description: t('Crypto.ethBtcRatioDescription'),
+    tooltipText: t('Crypto.ethBtcRatioTooltip'),
   },
   {
     title: t('Crypto.total2'),
@@ -216,6 +226,7 @@ export const cryptoMetrics = (t: I18n): MetricCard[] => [
     change: t('Crypto.inLast24h', { val: '+2.8%' }),
     changeType: 'positive',
     description: t('Crypto.total2Description'),
+    tooltipText: t('Crypto.total2Tooltip'),
   },
   {
     title: t('Crypto.total3'),
@@ -223,6 +234,7 @@ export const cryptoMetrics = (t: I18n): MetricCard[] => [
     change: t('Crypto.inLast24h', { val: '+4.2%' }),
     changeType: 'positive',
     description: t('Crypto.total3Description'),
+    tooltipText: t('Crypto.total3Tooltip'),
   },
 ];
 

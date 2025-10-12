@@ -13,10 +13,10 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { cn } from '@/lib/utils';
 import { cryptoMetrics, btcLogRegression, getNextHalving } from '@/lib/data';
 import { Line, LineChart, XAxis, YAxis, CartesianGrid } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
+import { MetricCard } from '@/components/metric-card';
 
 const chartConfig = {
   price: {
@@ -100,31 +100,12 @@ function HalvingCountdown() {
 export default function CryptoPage() {
   const { t } = useI18n();
   const metrics = cryptoMetrics(t);
-  
+
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {metrics.map((metric) => (
-          <Card key={metric.title}>
-            <CardHeader className="pb-2">
-              <CardDescription>{metric.description}</CardDescription>
-              <CardTitle asChild>
-                <h3 className="text-4xl font-bold">{metric.value}</h3>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div
-                className={cn(
-                  'text-xs',
-                  metric.changeType === 'positive'
-                    ? 'text-green-500'
-                    : 'text-red-500'
-                )}
-              >
-                {metric.change}
-              </div>
-            </CardContent>
-          </Card>
+          <MetricCard key={metric.title} metric={metric} />
         ))}
       </div>
 

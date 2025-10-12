@@ -10,12 +10,13 @@ export type NavLink = {
   icon: LucideIcon;
 };
 
-export type MetricCard = {
+export type MetricCardData = {
   title: string;
   value: string;
   change: string;
   changeType: 'positive' | 'negative';
   description: string;
+  tooltipText: string;
 };
 
 export type ChartDataPoint = {

@@ -1,21 +1,21 @@
 'use client';
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { cn } from '@/lib/utils';
-import { macroMetrics as getMacroMetrics, interestRateHistory, sp500VsBtcCorrelation, fedDotPlotData } from '@/lib/data';
-import { Bar, BarChart, CartesianGrid, Line, LineChart, Scatter, ScatterChart, XAxis, YAxis, Label } from 'recharts';
+import {
+  getMacroMetrics,
+  interestRateHistory,
+  sp500VsBtcCorrelation,
+  fedDotPlotData,
+} from '@/lib/data';
+import { Line, LineChart, Scatter, ScatterChart, XAxis, YAxis } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { MetricCard } from '@/components/metric-card';
+
 
 const chartConfig = {
   fedRate: {
@@ -37,7 +37,7 @@ const chartConfig = {
   dot: {
     label: 'Projection',
     color: 'hsl(var(--chart-1))',
-  }
+  },
 };
 
 const formatDate = (value: string) => {
@@ -52,31 +52,12 @@ const formatDate = (value: string) => {
 export default function Dashboard() {
   const { t } = useI18n();
   const macroMetrics = getMacroMetrics(t);
-  
+
   return (
     <div className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {macroMetrics.map((metric) => (
-          <Card key={metric.title}>
-            <CardHeader className="pb-2">
-              <CardDescription>{metric.title}</CardDescription>
-              <CardTitle asChild>
-                <h3 className="text-4xl font-bold">{metric.value}</h3>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div
-                className={cn(
-                  'text-xs',
-                  metric.changeType === 'positive'
-                    ? 'text-green-500'
-                    : 'text-red-500'
-                )}
-              >
-                {metric.change}
-              </div>
-            </CardContent>
-          </Card>
+          <MetricCard key={metric.title} metric={metric} />
         ))}
       </div>
 
@@ -92,10 +73,24 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[250px] w-full">
-              <LineChart data={sp500VsBtcCorrelation} margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
+              <LineChart
+                data={sp500VsBtcCorrelation}
+                margin={{ top: 5, right: 20, left: -10, bottom: 0 }}
+              >
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={formatDate} />
-                <YAxis tickLine={false} axisLine={false} tickMargin={8} domain={[-1, 1]}/>
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={formatDate}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  domain={[-1, 1]}
+                />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Line
                   dataKey="correlation"
@@ -120,10 +115,24 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[250px] w-full">
-              <LineChart data={interestRateHistory} margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
+              <LineChart
+                data={interestRateHistory}
+                margin={{ top: 5, right: 20, left: -10, bottom: 0 }}
+              >
                 <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={formatDate} />
-                <YAxis unit="%" tickLine={false} axisLine={false} tickMargin={8} />
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={formatDate}
+                />
+                <YAxis
+                  unit="%"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Line
                   dataKey="Fed Rate"
@@ -148,13 +157,35 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="h-[250px] w-full">
-                <ScatterChart margin={{ top: 5, right: 20, left: -10, bottom: 0 }}>
-                    <CartesianGrid vertical={false} strokeDasharray="3 3" />
-                    <XAxis dataKey="year" type="category" allowDuplicatedCategory={false} tickLine={false} axisLine={false} tickMargin={8}/>
-                    <YAxis dataKey="rate" unit="%" tickLine={false} axisLine={false} tickMargin={8}/>
-                    <ChartTooltip cursor={{ strokeDasharray: '3 3' }} content={<ChartTooltipContent />} />
-                    <Scatter name="Projection" data={fedDotPlotData} fill="var(--color-dot)" />
-                </ScatterChart>
+              <ScatterChart
+                margin={{ top: 5, right: 20, left: -10, bottom: 0 }}
+              >
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="year"
+                  type="category"
+                  allowDuplicatedCategory={false}
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                />
+                <YAxis
+                  dataKey="rate"
+                  unit="%"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                />
+                <ChartTooltip
+                  cursor={{ strokeDasharray: '3 3' }}
+                  content={<ChartTooltipContent />}
+                />
+                <Scatter
+                  name="Projection"
+                  data={fedDotPlotData}
+                  fill="var(--color-dot)"
+                />
+              </ScatterChart>
             </ChartContainer>
           </CardContent>
         </Card>
