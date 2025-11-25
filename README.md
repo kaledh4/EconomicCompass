@@ -1,4 +1,4 @@
-# Hunch Machine (GitHub Pages Edition)
+# EconomicCompass - Hunch Machine (GitHub Pages Edition)
 
 This is a self-hosted, 100% free version of the Hunch Machine crypto investment insight tool.
 It runs automatically on GitHub Actions and hosts the result on GitHub Pages.
