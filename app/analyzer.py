@@ -33,6 +33,12 @@ def generate_insight(data):
     3. **Micro Pulse**: Look at RSI and Fear & Greed. Is the market overextended?
     4. **TASI Insight**: Briefly mention the Saudi TASI market direction based on the data.
     5. **Actionable Advice**: Give a clear recommendation: Accumulate, Hold, or De-risk/Step Back.
+    6. **Weekly Watchlist**: Provide 3-5 important things to follow this week including:
+       - Key economic events and data releases
+       - Central bank meetings or announcements
+       - Hashtags for social sentiment tracking
+       - Microeconomic factors affecting specific sectors
+       - Calendar events that could impact markets
     
     FORMAT:
     Return the response in HTML format (just the body content, no <html> tags) with nice formatting (<h2>, <ul>, <p>, <strong>).
@@ -51,6 +57,11 @@ def generate_insight(data):
     <h2>🎯 Actionable Verdict</h2>
     <p><strong>[ACCUMULATE / HOLD / DE-RISK]</strong></p>
     <p>...</p>
+    
+    <h2>📅 Weekly Watchlist</h2>
+    <ul>
+      <li>...</li>
+    </ul>
     """
     
     try:
