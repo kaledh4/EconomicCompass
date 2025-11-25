@@ -1,8 +1,8 @@
 import yfinance as yf
 import pandas as pd
-import pandas_ta as ta
 import requests
 from datetime import datetime, timedelta
+from app.technical_analysis import rsi, sma, ema
 
 def get_crypto_data(ticker="BTC-USD"):
     # Fetch 5 years of data to ensure enough for 200W MA
@@ -18,15 +18,15 @@ def get_crypto_data(ticker="BTC-USD"):
 
     # Calculate Indicators
     # RSI 14
-    df['RSI'] = ta.rsi(df['Close'], length=14)
+    df['RSI'] = rsi(df['Close'], length=14)
     
     # Moving Averages (Weekly)
-    df['MA50'] = ta.sma(df['Close'], length=50)
-    df['MA200'] = ta.sma(df['Close'], length=200)
+    df['MA50'] = sma(df['Close'], length=50)
+    df['MA200'] = sma(df['Close'], length=200)
     
     # Bull Market Support Band
-    df['SMA20'] = ta.sma(df['Close'], length=20)
-    df['EMA21'] = ta.ema(df['Close'], length=21)
+    df['SMA20'] = sma(df['Close'], length=20)
+    df['EMA21'] = ema(df['Close'], length=21)
     
     # Get latest valid row
     latest = df.iloc[-1]
