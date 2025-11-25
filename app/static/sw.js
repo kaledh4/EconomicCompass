@@ -1,8 +1,8 @@
-const CACHE_NAME = 'hunch-machine-v1';
+const CACHE_NAME = 'economic-compass-v1';
 const urlsToCache = [
-  '/',
-  '/static/style.css',
-  '/static/manifest.json'
+  '/EconomicCompass/',
+  '/EconomicCompass/static/style.css',
+  '/EconomicCompass/static/manifest.json'
 ];
 
 // Install event - cache assets

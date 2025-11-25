@@ -207,33 +207,45 @@
 
         // Elements to translate
         const translatableElements = {
-            'fng-title': ['fngTitle'],
-            'btc-title': ['btcTitle'],
-            'macro-title': ['macroTitle'],
-            'price-label': ['priceLabel'],
-            'rsi-label': ['rsiLabel'],
-            'trend-label': ['trendLabel'],
-            'unavailable-label': ['unavailableLabel'],
-            'yield-label': ['yieldLabel'],
-            'gold-label': ['goldLabel'],
-            'sp500-label': ['sp500Label'],
-            'tasi-label': ['tasiLabel'],
-            'insight-title': ['insightTitle'],
-            'updated-label': ['updatedLabel'],
-            'trend-value': ['trendLabel'] // Will need special handling
+            'fng-title': 'fngTitle',
+            'btc-title': 'btcTitle',
+            'macro-title': 'macroTitle',
+            'price-label': 'priceLabel',
+            'rsi-label': 'rsiLabel',
+            'trend-label': 'trendLabel',
+            'unavailable-label': 'unavailableLabel',
+            'yield-label': 'yieldLabel',
+            'gold-label': 'goldLabel',
+            'sp500-label': 'sp500Label',
+            'tasi-label': 'tasiLabel',
+            'insight-title': 'insightTitle',
+            'updated-label': 'updatedLabel'
         };
 
         // Format date in a human-readable way
         function formatHumanDate(dateString) {
             const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+            const lang = localStorage.getItem('language') || 'en';
+            
+            if (lang === 'ar') {
+                return date.toLocaleDateString('ar-EG', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            } else {
+                return date.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
         }
 
         // Update timestamp display
@@ -268,10 +280,9 @@
             langToggle.textContent = lang === 'en' ? 'عربي' : 'English';
             
             // Update all translatable elements
-            for (const [elementId, translationKeys] of Object.entries(translatableElements)) {
+            for (const [elementId, translationKey] of Object.entries(translatableElements)) {
                 const element = document.getElementById(elementId);
                 if (element) {
-                    const translationKey = translationKeys[0];
                     element.textContent = translations[lang][translationKey];
                 }
             }
@@ -280,10 +291,22 @@
             const trendValueElement = document.getElementById('trend-value');
             if (trendValueElement) {
                 const currentText = trendValueElement.textContent.trim();
-                if (currentText === 'Bullish') {
+                if (currentText === 'Bullish' || currentText === translations.en.bullish) {
                     trendValueElement.textContent = lang === 'en' ? 'Bullish' : translations.ar.bullish;
-                } else if (currentText === 'Bearish') {
+                } else if (currentText === 'Bearish' || currentText === translations.en.bearish) {
                     trendValueElement.textContent = lang === 'en' ? 'Bearish' : translations.ar.bearish;
+                }
+            }
+            
+            // Update the updated label text
+            const updatedLabelText = document.getElementById('updated-label');
+            if (updatedLabelText) {
+                const colonIndex = updatedLabelText.innerHTML.indexOf(':');
+                if (colonIndex !== -1) {
+                    const timestampPart = updatedLabelText.innerHTML.substring(colonIndex + 1).trim();
+                    updatedLabelText.innerHTML = translations[lang].updatedLabel + ' ' + timestampPart;
+                } else {
+                    updatedLabelText.textContent = translations[lang].updatedLabel;
                 }
             }
         }
@@ -309,6 +332,9 @@
             } else {
                 document.body.classList.remove('rtl');
             }
+            
+            // Reformat dates with new language
+            updateTimestamp();
         }
 
         // Initialize language settings
@@ -327,9 +353,6 @@
             if (savedLang === 'ar') {
                 document.body.classList.add('rtl');
             }
-            
-            // Set up event listener
-            langToggle.addEventListener('click', toggleLanguage);
         }
 
         // Initialize when page loads
@@ -337,6 +360,11 @@
             updateTimestamp();
             updateDateDisplay();
             initLanguage();
+            
+            // Set up event listener
+            if (langToggle) {
+                langToggle.addEventListener('click', toggleLanguage);
+            }
         });
 
         // Service Worker Registration
