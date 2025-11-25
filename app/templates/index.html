@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunch Machine | Daily Crypto Insight</title>
+    <title>EconomicCompass | Daily Crypto Insight</title>
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#3b82f6">
     <meta name="description" content="AI-powered daily crypto market insights with macroeconomic analysis">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Hunch Machine">
+    <meta name="apple-mobile-web-app-title" content="EconomicCompass">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
@@ -35,8 +35,13 @@
 
     <div class="container">
         <header>
-            <div class="logo">HUNCH MACHINE <span class="badge">FREE</span></div>
-            <div class="date">{{ generated_at }}</div>
+            <div class="logo">EconomicCompass <span class="badge">FREE</span></div>
+            <div class="header-controls">
+                <div class="date" id="date-display">{{ generated_at }}</div>
+                <div class="language-switcher">
+                    <button id="lang-toggle" class="lang-button">عربي</button>
+                </div>
+            </div>
         </header>
 
         <main>
@@ -46,47 +51,47 @@
                 <div class="sidebar">
                     <!-- Fear & Greed -->
                     <div class="glass-panel indicator-card">
-                        <h3>Fear & Greed</h3>
+                        <h3 id="fng-title">Fear & Greed</h3>
                         <div class="gauge-container">
                             {% set fng = insight.raw_data.fng %}
                             {% set fng_color = '#10b981' if fng.value|int > 60 else '#ef4444' if fng.value|int < 40
                                 else '#f59e0b' %} <div class="gauge-value" style="color: {{ fng_color }}">{{ fng.value
                                 }}</div>
-                        <div class="gauge-label">{{ fng.value_classification }}</div>
+                        <div class="gauge-label" id="fng-classification">{{ fng.value_classification }}</div>
                     </div>
                 </div>
 
                 <!-- BTC Trend -->
                 <div class="glass-panel indicator-card">
-                    <h3>BTC Trend</h3>
+                    <h3 id="btc-title">BTC Trend</h3>
                     {% set btc = insight.raw_data.btc %}
                     {% if btc %}
                     <div class="trend-row">
-                        <span>Price</span>
+                        <span id="price-label">Price</span>
                         <span class="value">${{ "{:,.0f}".format(btc.price) }}</span>
                     </div>
                     <div class="trend-row">
-                        <span>RSI (14)</span>
+                        <span id="rsi-label">RSI (14)</span>
                         <span class="value">{{ "{:.1f}".format(btc.rsi) }}</span>
                     </div>
                     <div class="trend-row">
-                        <span>Trend</span>
-                        <span class="value {{ 'text-green' if btc.trend_weekly == 'Bullish' else 'text-red' }}">{{
+                        <span id="trend-label">Trend</span>
+                        <span class="value {{ 'text-green' if btc.trend_weekly == 'Bullish' else 'text-red' }}" id="trend-value">{{
                             btc.trend_weekly }}</span>
                     </div>
                     {% else %}
-                    <div class="trend-row"><span>Data Unavailable</span></div>
+                    <div class="trend-row"><span id="unavailable-label">Data Unavailable</span></div>
                     {% endif %}
                 </div>
 
                 <!-- Macro Pulse -->
                 <div class="glass-panel indicator-card">
-                    <h3>Macro Pulse</h3>
+                    <h3 id="macro-title">Macro Pulse</h3>
                     {% set macro = insight.raw_data.macro %}
 
                     <!-- Yield -->
                     <div class="trend-row">
-                        <span>10Y Yield</span>
+                        <span id="yield-label">10Y Yield</span>
                         {% set y_chg = macro.treasury_10y.change_7d %}
                         {% set y_sym = '▲' if y_chg >= 0 else '▼' %}
                         {% set y_col = 'text-green' if y_chg >= 0 else 'text-red' %}
@@ -99,7 +104,7 @@
 
                     <!-- Gold -->
                     <div class="trend-row">
-                        <span>Gold</span>
+                        <span id="gold-label">Gold</span>
                         {% set g_chg = macro.gold.change_7d %}
                         {% set g_sym = '▲' if g_chg >= 0 else '▼' %}
                         {% set g_col = 'text-green' if g_chg >= 0 else 'text-red' %}
@@ -112,7 +117,7 @@
 
                     <!-- S&P 500 -->
                     <div class="trend-row">
-                        <span>S&P 500</span>
+                        <span id="sp500-label">S&P 500</span>
                         {% set s_chg = macro.sp500.change_7d %}
                         {% set s_sym = '▲' if s_chg >= 0 else '▼' %}
                         {% set s_col = 'text-green' if s_chg >= 0 else 'text-red' %}
@@ -125,7 +130,7 @@
 
                     <!-- TASI -->
                     <div class="trend-row">
-                        <span>TASI</span>
+                        <span id="tasi-label">TASI</span>
                         {% set t_chg = macro.tasi.change_7d %}
                         {% set t_sym = '▲' if t_chg >= 0 else '▼' %}
                         {% set t_col = 'text-green' if t_chg >= 0 else 'text-red' %}
@@ -142,8 +147,8 @@
             <div class="content-area">
                 <div class="glass-panel insight-panel">
                     <div class="insight-header">
-                        <h2>Daily Market Intelligence</h2>
-                        <div style="font-size: 0.8rem; color: #a0a0b0;">Updated: {{ insight.timestamp }}</div>
+                        <h2 id="insight-title">Daily Market Intelligence</h2>
+                        <div id="updated-label" style="font-size: 0.8rem; color: #a0a0b0;">Updated: <span id="timestamp">{{ insight.timestamp }}</span></div>
                     </div>
                     <div class="markdown-body">
                         {{ insight.html | safe }}
@@ -153,8 +158,188 @@
     </div>
     </main>
     </div>
-    <!-- Service Worker Registration -->
+
+    <!-- Language Switching Script -->
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                fngTitle: "Fear & Greed",
+                btcTitle: "BTC Trend",
+                macroTitle: "Macro Pulse",
+                priceLabel: "Price",
+                rsiLabel: "RSI (14)",
+                trendLabel: "Trend",
+                unavailableLabel: "Data Unavailable",
+                yieldLabel: "10Y Yield",
+                goldLabel: "Gold",
+                sp500Label: "S&P 500",
+                tasiLabel: "TASI",
+                insightTitle: "Daily Market Intelligence",
+                updatedLabel: "Updated:",
+                bullish: "Bullish",
+                bearish: "Bearish"
+            },
+            ar: {
+                fngTitle: "الخوف والطمع",
+                btcTitle: "اتجاه البيتكوين",
+                macroTitle: "نبض الاقتصاد الكلي",
+                priceLabel: "السعر",
+                rsiLabel: "مؤشر RSI (14)",
+                trendLabel: "الاتجاه",
+                unavailableLabel: "البيانات غير متوفرة",
+                yieldLabel: "عائد 10 سنوات",
+                goldLabel: "الذهب",
+                sp500Label: "S&P 500",
+                tasiLabel: "تاسي",
+                insightTitle: "ذكاء السوق اليومي",
+                updatedLabel: "تم التحديث:",
+                bullish: "صاعد",
+                bearish: "هابط"
+            }
+        };
+
+        // DOM elements
+        const langToggle = document.getElementById('lang-toggle');
+        const dateDisplay = document.getElementById('date-display');
+        const timestamp = document.getElementById('timestamp');
+        const updatedLabel = document.getElementById('updated-label');
+
+        // Elements to translate
+        const translatableElements = {
+            'fng-title': ['fngTitle'],
+            'btc-title': ['btcTitle'],
+            'macro-title': ['macroTitle'],
+            'price-label': ['priceLabel'],
+            'rsi-label': ['rsiLabel'],
+            'trend-label': ['trendLabel'],
+            'unavailable-label': ['unavailableLabel'],
+            'yield-label': ['yieldLabel'],
+            'gold-label': ['goldLabel'],
+            'sp500-label': ['sp500Label'],
+            'tasi-label': ['tasiLabel'],
+            'insight-title': ['insightTitle'],
+            'updated-label': ['updatedLabel'],
+            'trend-value': ['trendLabel'] // Will need special handling
+        };
+
+        // Format date in a human-readable way
+        function formatHumanDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Update timestamp display
+        function updateTimestamp() {
+            const timestampText = timestamp.textContent;
+            if (timestampText) {
+                timestamp.textContent = formatHumanDate(timestampText);
+            }
+        }
+
+        // Update date display
+        function updateDateDisplay() {
+            const dateText = dateDisplay.textContent;
+            if (dateText) {
+                // Convert the date string to a more readable format
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                
+                // Parse the date (assuming format like "Tuesday, November 25, 2025")
+                const parts = dateText.split(', ');
+                if (parts.length === 3) {
+                    const dayName = parts[0];
+                    const monthDayYear = parts[1] + ', ' + parts[2];
+                    dateDisplay.textContent = `${dayName}, ${monthDayYear}`;
+                }
+            }
+        }
+
+        // Translate page content
+        function translatePage(lang) {
+            // Update button text
+            langToggle.textContent = lang === 'en' ? 'عربي' : 'English';
+            
+            // Update all translatable elements
+            for (const [elementId, translationKeys] of Object.entries(translatableElements)) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    const translationKey = translationKeys[0];
+                    element.textContent = translations[lang][translationKey];
+                }
+            }
+            
+            // Special handling for trend value
+            const trendValueElement = document.getElementById('trend-value');
+            if (trendValueElement) {
+                const currentText = trendValueElement.textContent.trim();
+                if (currentText === 'Bullish') {
+                    trendValueElement.textContent = lang === 'en' ? 'Bullish' : translations.ar.bullish;
+                } else if (currentText === 'Bearish') {
+                    trendValueElement.textContent = lang === 'en' ? 'Bearish' : translations.ar.bearish;
+                }
+            }
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('language') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            
+            // Save preference
+            localStorage.setItem('language', newLang);
+            
+            // Apply translation
+            translatePage(newLang);
+            
+            // Apply RTL for Arabic
+            document.documentElement.lang = newLang;
+            document.body.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update styles for RTL
+            if (newLang === 'ar') {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
+        }
+
+        // Initialize language settings
+        function initLanguage() {
+            // Check for saved preference or default to English
+            const savedLang = localStorage.getItem('language') || 'en';
+            
+            // Apply translation
+            translatePage(savedLang);
+            
+            // Apply RTL for Arabic
+            document.documentElement.lang = savedLang;
+            document.body.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update styles for RTL
+            if (savedLang === 'ar') {
+                document.body.classList.add('rtl');
+            }
+            
+            // Set up event listener
+            langToggle.addEventListener('click', toggleLanguage);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTimestamp();
+            updateDateDisplay();
+            initLanguage();
+        });
+
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/static/sw.js')
@@ -167,7 +352,6 @@
             });
         }
     </script>
-
 </body>
 
 </html>

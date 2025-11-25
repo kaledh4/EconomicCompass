@@ -47,14 +47,15 @@ def build_site():
     template = env.get_template("index.html")
     
     # Prepare context for Jinja
+    current_time = datetime.now()
     context = {
         "insight": {
             "html": insight_html,
             "raw_data": raw_data,
-            "date": datetime.now().strftime("%Y-%m-%d"),
-            "timestamp": datetime.now().isoformat()
+            "date": current_time.strftime("%Y-%m-%d"),
+            "timestamp": current_time.isoformat()
         },
-        "generated_at": datetime.now().strftime("%A, %B %d, %Y")
+        "generated_at": current_time.strftime("%A, %B %d, %Y at %I:%M %p")
     }
     
     html_content = template.render(context)
