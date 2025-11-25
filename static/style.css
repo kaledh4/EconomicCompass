@@ -50,6 +50,13 @@ body.rtl {
     }
 }
 
+/* Hide browser UI in standalone mode */
+@media all and (display-mode: standalone) {
+    body {
+        padding: 0;
+    }
+}
+
 .background-glow {
     position: fixed;
     top: -50%;
@@ -121,6 +128,9 @@ header {
     
     .logo {
         font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
     
     .date {
@@ -144,6 +154,24 @@ header {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.lang-button:hover {
+    opacity: 0.9;
 }
 
 /* Responsive logo adjustment */
@@ -152,41 +180,15 @@ header {
         font-size: 1.2rem;
     }
     
-    .badge {
+    .lang-button {
         font-size: 0.6rem;
         padding: 0.1rem 0.3rem;
     }
 }
 
-.badge {
-    font-size: 0.7rem;
-    background: var(--accent-color);
-    color: white;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    vertical-align: middle;
-    margin-left: 0.5rem;
-    -webkit-text-fill-color: white;
-}
-
 .date {
     color: var(--text-secondary);
     font-size: 0.9rem;
-}
-
-.lang-button {
-    background: var(--accent-color);
-    color: white;
-    border: none;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    font-size: 0.8rem;
-    cursor: pointer;
-    margin-left: 1rem;
-}
-
-.lang-button:hover {
-    opacity: 0.9;
 }
 
 .dashboard-grid {
@@ -343,6 +345,17 @@ header {
     margin-bottom: 0.5rem;
 }
 
+/* Weekly watchlist specific styles */
+.markdown-body .watchlist-item {
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.markdown-body .hashtag {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
 /* Loader */
 .center-content {
     display: flex;
@@ -452,5 +465,22 @@ body.rtl .insight-header {
     .container {
         padding-left: max(0.5rem, env(safe-area-inset-left));
         padding-right: max(0.5rem, env(safe-area-inset-right));
+    }
+}
+
+/* PWA standalone mode optimizations */
+@media all and (display-mode: standalone) {
+    .container {
+        padding: 0.5rem;
+        max-width: 100%;
+    }
+    
+    header {
+        margin-bottom: 1rem;
+    }
+    
+    .glass-panel {
+        border-radius: 12px;
+        padding: 1rem;
     }
 }
