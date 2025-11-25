@@ -30,7 +30,7 @@ jobs:
       - name: Build Site
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_MODEL: "google/gemini-flash-1.5:free"
+          OPENROUTER_MODEL: "meta-llama/llama-3.1-8b-instruct:free"
         run: python build.py
 
       - name: Deploy to GitHub Pages

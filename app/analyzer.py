@@ -12,7 +12,7 @@ client = OpenAI(
 )
 
 # Use a valid free model
-MODEL = os.getenv("OPENROUTER_MODEL", "google/gemini-flash-1.5:free")
+MODEL = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.1-8b-instruct:free")
 
 def generate_insight(data):
     """
