@@ -1,8 +1,9 @@
 {
-  "name": "Hunch Machine - Daily Crypto Insights",
-  "short_name": "Hunch Machine",
+  "name": "EconomicCompass - Daily Crypto Insights",
+  "short_name": "EconomicCompass",
   "description": "AI-powered daily crypto market insights with macroeconomic analysis",
-  "start_url": "/",
+  "start_url": "/EconomicCompass/",
+  "scope": "/EconomicCompass/",
   "display": "standalone",
   "background_color": "#0f0f13",
   "theme_color": "#3b82f6",
