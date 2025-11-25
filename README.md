@@ -1,6 +1,6 @@
-# Hunch Machine (GitHub Pages Edition)
+# EconomicCompass
 
-This is a self-hosted, 100% free version of the Hunch Machine crypto investment insight tool.
+This is a self-hosted, 100% free version of the EconomicCompass crypto investment insight tool.
 It runs automatically on GitHub Actions and hosts the result on GitHub Pages.
 
 ## Features
@@ -14,14 +14,14 @@ It runs automatically on GitHub Actions and hosts the result on GitHub Pages.
 ## Setup Instructions
 
 ### 1. Push to GitHub
-1.  Create a new repository on GitHub (e.g., `hunch-machine`).
+1.  Create a new repository on GitHub (e.g., `EconomicCompass`).
 2.  Push this code to the repository:
     ```bash
     git init
     git add .
     git commit -m "Initial commit"
     git branch -M main
-    git remote add origin https://github.com/YOUR_USERNAME/hunch-machine.git
+    git remote add origin https://github.com/YOUR_USERNAME/EconomicCompass.git
     git push -u origin main
     ```
 
