@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunch Machine | Daily Crypto Insight</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="description" content="AI-powered daily crypto market insights with macroeconomic analysis">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Hunch Machine">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="static/manifest.json">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="static/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="static/icons/icon-192x192.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">HUNCH MACHINE <span class="badge">FREE</span></div>
+            <div class="date">{{ generated_at }}</div>
+        </header>
+
+        <main>
+            <div id="dashboard" class="dashboard-grid">
+
+                <!-- Left Column: Indicators -->
+                <div class="sidebar">
+                    <!-- Fear & Greed -->
+                    <div class="glass-panel indicator-card">
+                        <h3>Fear & Greed</h3>
+                        <div class="gauge-container">
+                            {% set fng = insight.raw_data.fng %}
+                            {% set fng_color = '#10b981' if fng.value|int > 60 else '#ef4444' if fng.value|int < 40
+                                else '#f59e0b' %} <div class="gauge-value" style="color: {{ fng_color }}">{{ fng.value
+                                }}</div>
+                        <div class="gauge-label">{{ fng.value_classification }}</div>
+                    </div>
+                </div>
+
+                <!-- BTC Trend -->
+                <div class="glass-panel indicator-card">
+                    <h3>BTC Trend</h3>
+                    {% set btc = insight.raw_data.btc %}
+                    {% if btc %}
+                    <div class="trend-row">
+                        <span>Price</span>
+                        <span class="value">${{ "{:,.0f}".format(btc.price) }}</span>
+                    </div>
+                    <div class="trend-row">
+                        <span>RSI (14)</span>
+                        <span class="value">{{ "{:.1f}".format(btc.rsi) }}</span>
+                    </div>
+                    <div class="trend-row">
+                        <span>Trend</span>
+                        <span class="value {{ 'text-green' if btc.trend_weekly == 'Bullish' else 'text-red' }}">{{
+                            btc.trend_weekly }}</span>
+                    </div>
+                    {% else %}
+                    <div class="trend-row"><span>Data Unavailable</span></div>
+                    {% endif %}
+                </div>
+
+                <!-- Macro Pulse -->
+                <div class="glass-panel indicator-card">
+                    <h3>Macro Pulse</h3>
+                    {% set macro = insight.raw_data.macro %}
+
+                    <!-- Yield -->
+                    <div class="trend-row">
+                        <span>10Y Yield</span>
+                        {% set y_chg = macro.treasury_10y.change_7d %}
+                        {% set y_sym = '▲' if y_chg >= 0 else '▼' %}
+                        {% set y_col = 'text-green' if y_chg >= 0 else 'text-red' %}
+                        <span class="value">
+                            {{ "{:.2f}".format(macro.treasury_10y.price) }}%
+                            <span class="{{ y_col }}" style="font-size: 0.8em;">{{ y_sym }} {{
+                                "{:.1f}".format(y_chg|abs) }}%</span>
+                        </span>
+                    </div>
+
+                    <!-- Gold -->
+                    <div class="trend-row">
+                        <span>Gold</span>
+                        {% set g_chg = macro.gold.change_7d %}
+                        {% set g_sym = '▲' if g_chg >= 0 else '▼' %}
+                        {% set g_col = 'text-green' if g_chg >= 0 else 'text-red' %}
+                        <span class="value">
+                            ${{ "{:,.0f}".format(macro.gold.price) }}
+                            <span class="{{ g_col }}" style="font-size: 0.8em;">{{ g_sym }} {{
+                                "{:.1f}".format(g_chg|abs) }}%</span>
+                        </span>
+                    </div>
+
+                    <!-- S&P 500 -->
+                    <div class="trend-row">
+                        <span>S&P 500</span>
+                        {% set s_chg = macro.sp500.change_7d %}
+                        {% set s_sym = '▲' if s_chg >= 0 else '▼' %}
+                        {% set s_col = 'text-green' if s_chg >= 0 else 'text-red' %}
+                        <span class="value">
+                            {{ "{:,.0f}".format(macro.sp500.price) }}
+                            <span class="{{ s_col }}" style="font-size: 0.8em;">{{ s_sym }} {{
+                                "{:.1f}".format(s_chg|abs) }}%</span>
+                        </span>
+                    </div>
+
+                    <!-- TASI -->
+                    <div class="trend-row">
+                        <span>TASI</span>
+                        {% set t_chg = macro.tasi.change_7d %}
+                        {% set t_sym = '▲' if t_chg >= 0 else '▼' %}
+                        {% set t_col = 'text-green' if t_chg >= 0 else 'text-red' %}
+                        <span class="value">
+                            {{ "{:,.0f}".format(macro.tasi.price) }}
+                            <span class="{{ t_col }}" style="font-size: 0.8em;">{{ t_sym }} {{
+                                "{:.1f}".format(t_chg|abs) }}%</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: AI Insight -->
+            <div class="content-area">
+                <div class="glass-panel insight-panel">
+                    <div class="insight-header">
+                        <h2>Daily Market Intelligence</h2>
+                        <div style="font-size: 0.8rem; color: #a0a0b0;">Updated: {{ insight.timestamp }}</div>
+                    </div>
+                    <div class="markdown-body">
+                        {{ insight.html | safe }}
+                    </div>
+                </div>
+            </div>
+    </div>
+    </main>
+    </div>
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/static/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+
+</body>
+
+</html>
