@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hunch Machine | Daily Crypto Insight</title>
+    <title>EconomicCompass | Daily Crypto Insight</title>
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#3b82f6">
     <meta name="description" content="AI-powered daily crypto market insights with macroeconomic analysis">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Hunch Machine">
+    <meta name="apple-mobile-web-app-title" content="EconomicCompass">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
@@ -35,8 +35,13 @@
 
     <div class="container">
         <header>
-            <div class="logo">HUNCH MACHINE <span class="badge">FREE</span></div>
-            <div class="date">Tuesday, November 25, 2025</div>
+            <div class="logo">EconomicCompass <span class="badge">FREE</span></div>
+            <div class="header-controls">
+                <div class="date" id="date-display">Tuesday, November 25, 2025 at 01:00 PM</div>
+                <div class="language-switcher">
+                    <button id="lang-toggle" class="lang-button">عربي</button>
+                </div>
+            </div>
         </header>
 
         <main>
@@ -46,42 +51,42 @@
                 <div class="sidebar">
                     <!-- Fear & Greed -->
                     <div class="glass-panel indicator-card">
-                        <h3>Fear & Greed</h3>
+                        <h3 id="fng-title">Fear & Greed</h3>
                         <div class="gauge-container">
                             
                              <div class="gauge-value" style="color: #ef4444">20</div>
-                        <div class="gauge-label">Extreme Fear</div>
+                        <div class="gauge-label" id="fng-classification">Extreme Fear</div>
                     </div>
                 </div>
 
                 <!-- BTC Trend -->
                 <div class="glass-panel indicator-card">
-                    <h3>BTC Trend</h3>
+                    <h3 id="btc-title">BTC Trend</h3>
                     
                     
                     <div class="trend-row">
-                        <span>Price</span>
-                        <span class="value">$87,592</span>
+                        <span id="price-label">Price</span>
+                        <span class="value">$87,489</span>
                     </div>
                     <div class="trend-row">
-                        <span>RSI (14)</span>
-                        <span class="value">33.0</span>
+                        <span id="rsi-label">RSI (14)</span>
+                        <span class="value">32.9</span>
                     </div>
                     <div class="trend-row">
-                        <span>Trend</span>
-                        <span class="value text-red">Bearish</span>
+                        <span id="trend-label">Trend</span>
+                        <span class="value text-red" id="trend-value">Bearish</span>
                     </div>
                     
                 </div>
 
                 <!-- Macro Pulse -->
                 <div class="glass-panel indicator-card">
-                    <h3>Macro Pulse</h3>
+                    <h3 id="macro-title">Macro Pulse</h3>
                     
 
                     <!-- Yield -->
                     <div class="trend-row">
-                        <span>10Y Yield</span>
+                        <span id="yield-label">10Y Yield</span>
                         
                         
                         
@@ -93,19 +98,19 @@
 
                     <!-- Gold -->
                     <div class="trend-row">
-                        <span>Gold</span>
+                        <span id="gold-label">Gold</span>
                         
                         
                         
                         <span class="value">
-                            $4,171
-                            <span class="text-green" style="font-size: 0.8em;">▲ 2.7%</span>
+                            $4,158
+                            <span class="text-green" style="font-size: 0.8em;">▲ 2.4%</span>
                         </span>
                     </div>
 
                     <!-- S&P 500 -->
                     <div class="trend-row">
-                        <span>S&P 500</span>
+                        <span id="sp500-label">S&P 500</span>
                         
                         
                         
@@ -117,7 +122,7 @@
 
                     <!-- TASI -->
                     <div class="trend-row">
-                        <span>TASI</span>
+                        <span id="tasi-label">TASI</span>
                         
                         
                         
@@ -133,39 +138,216 @@
             <div class="content-area">
                 <div class="glass-panel insight-panel">
                     <div class="insight-header">
-                        <h2>Daily Market Intelligence</h2>
-                        <div style="font-size: 0.8rem; color: #a0a0b0;">Updated: 2025-11-25T12:50:56.572533</div>
+                        <h2 id="insight-title">Daily Market Intelligence</h2>
+                        <div id="updated-label" style="font-size: 0.8rem; color: #a0a0b0;">Updated: <span id="timestamp">2025-11-25T13:00:53.586078</span></div>
                     </div>
                     <div class="markdown-body">
                         
 
-<div>
-  <h2>🦅 Macro View</h2>
-  <p>The macro landscape shows clear risk-off sentiment. Treasury yields fell 2.30% (4.038%), indicating capital flight to safe havens. The USD strengthened 0.58% (DXY), while gold gained 2.69% as investors seek safety. Oil prices declined 3.47%, signaling weakening global demand. The S&P 500 showed minimal growth (0.49%), and the Saudi TASI fell 3.71%, confirming broad-based risk aversion.</p>
+<object_eval>
+I'll analyze the market data according to the structure and provide precise insights with clear formatting.
+<tbody>
+<h2>🦅 Macro View</h2>
+<p><strong>Risk-Off sentiment dominates</strong> as Treasury 10y yields decline (-2.3% W/W), strengthening dollar pressure (DXY up 0.5%). Gold surges +2.4% W/W amid flight-to-safety demand, while oil slides -4.9% on weak demand signals. S&P 500 posts marginal gains (+0.5%) but leads have not rotated out of defensive positions. Saudi TASI declines sharply (-3.7%), confirming regional risk aversion. This combination creates unfavorable conditions for risk assets like crypto.</p>
 
-  <h2>BTC Market Structure</h2>
-  <p>BTC shows bearish short-term dynamics despite a long-term bullish trend. Price ($87.6K) sits between key levels: above the critical 200-day MA ($55.8K) but below the 50-day MA ($102.3K) and bull market bands ($105.3K EMA21/$110.5K SMA20). The 7-day bearish weekly trend and proximity to support levels suggest volatility persists.</p>
-  <ul>
-    <li><strong>Key Pressure Zone:</strong> EMA21 ($105.3K) and SMA20 ($110.5K)</li>
-    <li><strong>Long-Term Context:</strong> Bullish (price > 200-day MA, 50-day > 200-day)</li>
-    <li><strong>Risk Catalyst:</strong> Rejection of bull market bands could trigger 15-20% downside to MA50</li>
-  </ul>
+<h2>BTC Market Structure</h2>
+<p>BTC shows <strong>clear bearish structure</strong>: Trading <span style="color:red">~-14.5% below 50W MA</span> and <span style="color:red">~56% below 200W MA</span>. Prices sit far below critical Bull Market Support Bands, with <span style="color:red">~20% below SMA20 band</span> and <span style="color:red">~17% below EMA21 band</span>. The <strong>weekly trend being Bearish</strong> reinforces this structure. ETH exhibits similar weakness, including deeper drawdowns versus BTC.</p>
 
-  <h2>🇸🇦 TASI & Global Markets</h2>
-  <p>The Saudi TASI declined 3.71% amid regional risk aversion, mirroring global equity weakness. This contrasts with improving flow volatility metrics (Fedwire 4% increase), suggesting interconnected risk-off dynamics across major asset classes.</p>
+<h2>🇸🇦 TASI & Global Markets</h2>
+<p>Saudi TASI: <strong>Down -3.7%</strong> W/W, reflecting regional risk-off dynamics. Global support stories remain scarce: Oil's 4.9% drop and bearish technicals suggest weak commodity demand, while DXY gains pressure emerging markets. Gold's 2.4% rally and falling yields indicate flight-to-safety, with no macro catalysts visible in the coming week.</p>
 
-  <h2>🎯 Actionable Verdict</h2>
-  <p><strong>HOLD</strong></p>
-  <p>With extreme fear sentiment (F&G = 20) and oversold conditions (BTC RSI 33/Ether RSI 26), value exists at current price levels. However, the risk-off macro environment and bearish short-term structure warrant caution. Prioritize holding allocations unless BTC reclaims EMA21 ($105.3K) and demonstrates advancing volume.</p>
-</div>
+<h2>🎯 Actionable Verdict</h2>
+<p><strong>DE-RISK</strong></p>
+<p>Bid-ask spreads show compression suggesting reduced liquidity. The combination of bearish macro correlations (especially oil/yield/DXY), BTC's structure breaking below key support bands, and <strong>Extreme Fear on FNG</strong> warrants caution. While oversold RSI levels (BTC RSI 32.9, ETH RSI 25.7) imply short-term exhaustion, the dominant bearish trend and risk-off macro make this unfavorable for accumulation. Focus on portfolio preservation until either: 1) BTC reclaims weekly MA50, or 2) Yield/DXY alignment shifts.</p>
+</tbody>
                     </div>
                 </div>
             </div>
     </div>
     </main>
     </div>
-    <!-- Service Worker Registration -->
+
+    <!-- Language Switching Script -->
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                fngTitle: "Fear & Greed",
+                btcTitle: "BTC Trend",
+                macroTitle: "Macro Pulse",
+                priceLabel: "Price",
+                rsiLabel: "RSI (14)",
+                trendLabel: "Trend",
+                unavailableLabel: "Data Unavailable",
+                yieldLabel: "10Y Yield",
+                goldLabel: "Gold",
+                sp500Label: "S&P 500",
+                tasiLabel: "TASI",
+                insightTitle: "Daily Market Intelligence",
+                updatedLabel: "Updated:",
+                bullish: "Bullish",
+                bearish: "Bearish"
+            },
+            ar: {
+                fngTitle: "الخوف والطمع",
+                btcTitle: "اتجاه البيتكوين",
+                macroTitle: "نبض الاقتصاد الكلي",
+                priceLabel: "السعر",
+                rsiLabel: "مؤشر RSI (14)",
+                trendLabel: "الاتجاه",
+                unavailableLabel: "البيانات غير متوفرة",
+                yieldLabel: "عائد 10 سنوات",
+                goldLabel: "الذهب",
+                sp500Label: "S&P 500",
+                tasiLabel: "تاسي",
+                insightTitle: "ذكاء السوق اليومي",
+                updatedLabel: "تم التحديث:",
+                bullish: "صاعد",
+                bearish: "هابط"
+            }
+        };
+
+        // DOM elements
+        const langToggle = document.getElementById('lang-toggle');
+        const dateDisplay = document.getElementById('date-display');
+        const timestamp = document.getElementById('timestamp');
+        const updatedLabel = document.getElementById('updated-label');
+
+        // Elements to translate
+        const translatableElements = {
+            'fng-title': ['fngTitle'],
+            'btc-title': ['btcTitle'],
+            'macro-title': ['macroTitle'],
+            'price-label': ['priceLabel'],
+            'rsi-label': ['rsiLabel'],
+            'trend-label': ['trendLabel'],
+            'unavailable-label': ['unavailableLabel'],
+            'yield-label': ['yieldLabel'],
+            'gold-label': ['goldLabel'],
+            'sp500-label': ['sp500Label'],
+            'tasi-label': ['tasiLabel'],
+            'insight-title': ['insightTitle'],
+            'updated-label': ['updatedLabel'],
+            'trend-value': ['trendLabel'] // Will need special handling
+        };
+
+        // Format date in a human-readable way
+        function formatHumanDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Update timestamp display
+        function updateTimestamp() {
+            const timestampText = timestamp.textContent;
+            if (timestampText) {
+                timestamp.textContent = formatHumanDate(timestampText);
+            }
+        }
+
+        // Update date display
+        function updateDateDisplay() {
+            const dateText = dateDisplay.textContent;
+            if (dateText) {
+                // Convert the date string to a more readable format
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                
+                // Parse the date (assuming format like "Tuesday, November 25, 2025")
+                const parts = dateText.split(', ');
+                if (parts.length === 3) {
+                    const dayName = parts[0];
+                    const monthDayYear = parts[1] + ', ' + parts[2];
+                    dateDisplay.textContent = `${dayName}, ${monthDayYear}`;
+                }
+            }
+        }
+
+        // Translate page content
+        function translatePage(lang) {
+            // Update button text
+            langToggle.textContent = lang === 'en' ? 'عربي' : 'English';
+            
+            // Update all translatable elements
+            for (const [elementId, translationKeys] of Object.entries(translatableElements)) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    const translationKey = translationKeys[0];
+                    element.textContent = translations[lang][translationKey];
+                }
+            }
+            
+            // Special handling for trend value
+            const trendValueElement = document.getElementById('trend-value');
+            if (trendValueElement) {
+                const currentText = trendValueElement.textContent.trim();
+                if (currentText === 'Bullish') {
+                    trendValueElement.textContent = lang === 'en' ? 'Bullish' : translations.ar.bullish;
+                } else if (currentText === 'Bearish') {
+                    trendValueElement.textContent = lang === 'en' ? 'Bearish' : translations.ar.bearish;
+                }
+            }
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('language') || 'en';
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            
+            // Save preference
+            localStorage.setItem('language', newLang);
+            
+            // Apply translation
+            translatePage(newLang);
+            
+            // Apply RTL for Arabic
+            document.documentElement.lang = newLang;
+            document.body.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update styles for RTL
+            if (newLang === 'ar') {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
+        }
+
+        // Initialize language settings
+        function initLanguage() {
+            // Check for saved preference or default to English
+            const savedLang = localStorage.getItem('language') || 'en';
+            
+            // Apply translation
+            translatePage(savedLang);
+            
+            // Apply RTL for Arabic
+            document.documentElement.lang = savedLang;
+            document.body.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+            
+            // Update styles for RTL
+            if (savedLang === 'ar') {
+                document.body.classList.add('rtl');
+            }
+            
+            // Set up event listener
+            langToggle.addEventListener('click', toggleLanguage);
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTimestamp();
+            updateDateDisplay();
+            initLanguage();
+        });
+
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/static/sw.js')
@@ -178,7 +360,6 @@
             });
         }
     </script>
-
 </body>
 
 </html>
