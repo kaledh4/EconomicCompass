@@ -36,13 +36,17 @@ def generate_insight(data):
     6. **Weekly Watchlist**: Provide 3-5 important things to follow this week including:
        - Key economic events and data releases
        - Central bank meetings or announcements
-       - Hashtags for social sentiment tracking
+       - Hashtags for social sentiment tracking (format as #hashtag)
        - Microeconomic factors affecting specific sectors
        - Calendar events that could impact markets
+       - Format each item on a separate line with clear numbering (1., 2., 3., etc.)
+       - Make each item copyable as a single line
+       - Use bullet points for better readability
     
     FORMAT:
     Return the response in HTML format (just the body content, no <html> tags) with nice formatting (<h2>, <ul>, <p>, <strong>).
     Use a "Premium" tone: calm, objective, professional.
+    For the Weekly Watchlist section, ensure each item is on its own line and easily copyable.
     
     Structure:
     <h2>🦅 Macro View</h2>
@@ -60,7 +64,9 @@ def generate_insight(data):
     
     <h2>📅 Weekly Watchlist</h2>
     <ul>
-      <li>...</li>
+      <li>1. ...</li>
+      <li>2. ...</li>
+      <li>3. ...</li>
     </ul>
     """
     
@@ -68,7 +74,7 @@ def generate_insight(data):
         completion = client.chat.completions.create(
             model=MODEL,
             messages=[
-                {"role": "system", "content": "You are a helpful and insightful crypto market analyst."},
+                {"role": "system", "content": "You are a helpful and insightful crypto market analyst. Always respond in English, regardless of any language preferences."},
                 {"role": "user", "content": prompt}
             ]
         )

@@ -35,12 +35,9 @@
 
     <div class="container">
         <header>
-            <div class="logo">EconomicCompass <span class="badge">FREE</span></div>
+            <div class="logo">EconomicCompass <button id="lang-toggle" class="lang-button">عربي</button></div>
             <div class="header-controls">
                 <div class="date" id="date-display">{{ generated_at }}</div>
-                <div class="language-switcher">
-                    <button id="lang-toggle" class="lang-button">عربي</button>
-                </div>
             </div>
         </header>
 
@@ -150,7 +147,7 @@
                         <h2 id="insight-title">Daily Market Intelligence</h2>
                         <div id="updated-label" style="font-size: 0.8rem; color: #a0a0b0;">Updated: <span id="timestamp">{{ insight.timestamp }}</span></div>
                     </div>
-                    <div class="markdown-body">
+                    <div class="markdown-body" id="insight-content">
                         {{ insight.html | safe }}
                     </div>
                 </div>
@@ -194,8 +191,8 @@
                 tasiLabel: "تاسي",
                 insightTitle: "ذكاء السوق اليومي",
                 updatedLabel: "تم التحديث:",
-                bullish: "صاعد",
-                bearish: "هابط"
+                bullish: "Bullish",
+                bearish: "Bearish"
             }
         };
 
@@ -260,16 +257,21 @@
         function updateDateDisplay() {
             const dateText = dateDisplay.textContent;
             if (dateText) {
-                // Convert the date string to a more readable format
-                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                const lang = localStorage.getItem('language') || 'en';
                 
-                // Parse the date (assuming format like "Tuesday, November 25, 2025")
-                const parts = dateText.split(', ');
-                if (parts.length === 3) {
-                    const dayName = parts[0];
-                    const monthDayYear = parts[1] + ', ' + parts[2];
-                    dateDisplay.textContent = `${dayName}, ${monthDayYear}`;
+                if (lang === 'ar') {
+                    // Format in Arabic
+                    const date = new Date();
+                    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    dateDisplay.textContent = date.toLocaleDateString('ar-EG', options);
+                } else {
+                    // Keep English format
+                    const parts = dateText.split(', ');
+                    if (parts.length === 3) {
+                        const dayName = parts[0];
+                        const monthDayYear = parts[1] + ', ' + parts[2];
+                        dateDisplay.textContent = `${dayName}, ${monthDayYear}`;
+                    }
                 }
             }
         }
@@ -287,14 +289,16 @@
                 }
             }
             
-            // Special handling for trend value
+            // Special handling for trend value (always show in English)
             const trendValueElement = document.getElementById('trend-value');
             if (trendValueElement) {
                 const currentText = trendValueElement.textContent.trim();
-                if (currentText === 'Bullish' || currentText === translations.en.bullish) {
-                    trendValueElement.textContent = lang === 'en' ? 'Bullish' : translations.ar.bullish;
-                } else if (currentText === 'Bearish' || currentText === translations.en.bearish) {
-                    trendValueElement.textContent = lang === 'en' ? 'Bearish' : translations.ar.bearish;
+                if (currentText === 'Bullish' || currentText === 'Bearish') {
+                    // Keep as is (already in English)
+                } else if (currentText === translations.ar.bullish) {
+                    trendValueElement.textContent = 'Bullish';
+                } else if (currentText === translations.ar.bearish) {
+                    trendValueElement.textContent = 'Bearish';
                 }
             }
             
@@ -335,6 +339,7 @@
             
             // Reformat dates with new language
             updateTimestamp();
+            updateDateDisplay();
         }
 
         // Initialize language settings
