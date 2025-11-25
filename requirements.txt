@@ -1,7 +1,7 @@
 yfinance
 pandas
-# Using git installation for pandas-ta as it's not available on PyPI
-git+https://github.com/twopirllc/pandas-ta.git
+# Using alternative installation method for pandas-ta
+pandas-ta @ git+https://github.com/twopirllc/pandas-ta.git
 requests
 openai
 python-dotenv
