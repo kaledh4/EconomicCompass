@@ -30,7 +30,7 @@ jobs:
       - name: Build Site
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_MODEL: "meta-llama/llama-3.1-8b-instruct:free"
+          OPENROUTER_MODEL: "alibaba/tongyi-deepresearch-30b-a3b:free"
         run: python build.py
 
       - name: Deploy to GitHub Pages
