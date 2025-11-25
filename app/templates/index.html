@@ -15,11 +15,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <!-- PWA Manifest -->
-    <link rel="manifest" href="static/manifest.json">
+    <link rel="manifest" href="/EconomicCompass/static/manifest.json">
     
     <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href="static/icons/favicon.ico">
-    <link rel="apple-touch-icon" href="static/icons/icon-192x192.png">
+    <link rel="icon" type="image/x-icon" href="/EconomicCompass/static/icons/favicon.ico">
+    <link rel="apple-touch-icon" href="/EconomicCompass/static/icons/icon-192x192.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="/EconomicCompass/static/style.css">
 </head>
 
 <body>
@@ -375,7 +375,7 @@
         // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/static/sw.js')
+                navigator.serviceWorker.register('/EconomicCompass/static/sw.js')
                     .then(registration => {
                         console.log('SW registered: ', registration);
                     })
