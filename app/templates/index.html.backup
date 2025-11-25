@@ -28,7 +28,6 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="/EconomicCompass/static/style.css">
-    <link rel="stylesheet" href="/EconomicCompass/static/interactive.css">
 </head>
 
 <body>
@@ -156,9 +155,6 @@
     </div>
     </main>
     </div>
-    <!-- Interactive Features -->
-    <script src="/EconomicCompass/static/app.js"></script>
-
 
     <!-- Language Switching Script -->
     <script>
